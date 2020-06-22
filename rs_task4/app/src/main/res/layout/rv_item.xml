@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:layout_margin="4dp"
+    android:padding="5dp">
+
+    <TextView
+        android:id="@+id/itemTextViewName"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:text="Name:"
+        android:textColor="@android:color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/itemTextViewNameData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="FEDYA"
+        android:textColor="@android:color/black"
+        app:layout_constraintStart_toEndOf="@id/itemTextViewName"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/itemTextViewAge"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="right"
+        android:text="Age:"
+        android:textColor="@android:color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/itemTextViewName" />
+
+    <TextView
+        android:id="@+id/itemTextViewAgeData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:text="17"
+        android:textColor="@android:color/black"
+        app:layout_constraintStart_toEndOf="@id/itemTextViewAge"
+        app:layout_constraintTop_toBottomOf="@id/itemTextViewNameData" />
+
+    <TextView
+        android:id="@+id/itemTextViewBreed"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="right"
+        android:text="Breed:"
+        android:textColor="@android:color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/itemTextViewAge" />
+
+    <TextView
+        android:id="@+id/itemTextViewBreedData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:text="SOBAKA"
+        android:textColor="@android:color/black"
+        app:layout_constraintStart_toEndOf="@id/itemTextViewBreed"
+        app:layout_constraintTop_toBottomOf="@id/itemTextViewAgeData" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
