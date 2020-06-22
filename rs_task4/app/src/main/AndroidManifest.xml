@@ -3,7 +3,6 @@
     package="com.gmail.wigglewie.rs_task4">
 
     <application
-        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -11,7 +10,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:label="Dogs"
+            android:label="@string/activity_main_label"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".AddItemActivity"
-            android:label="Add New Dog"/>
+            android:label="@string/activity_add_label"/>
     </application>
 
 </manifest>

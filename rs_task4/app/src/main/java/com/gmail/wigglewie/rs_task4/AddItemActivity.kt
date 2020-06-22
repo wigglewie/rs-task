@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import kotlinx.android.synthetic.main.content_add_item.*
 
 class AddItemActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,9 +19,9 @@ class AddItemActivity : AppCompatActivity() {
 
         findViewById<Button>(R.id.button_add_item).setOnClickListener { _ ->
 
-            val textName = findViewById<EditText>(R.id.editText_name).text.toString()
-            val textAge = findViewById<EditText>(R.id.editText_age).text.toString()
-            val textBreed = findViewById<EditText>(R.id.editText_breed).text.toString()
+            val textName = editText_name.text.toString()
+            val textAge = editText_age.text.toString()
+            val textBreed = editText_breed.text.toString()
 
             val intent = Intent()
             intent.putExtra("name", textName)

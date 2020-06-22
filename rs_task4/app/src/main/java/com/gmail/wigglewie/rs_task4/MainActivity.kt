@@ -19,9 +19,7 @@ class MainActivity : AppCompatActivity() {
 
     private val ADD_ITEM_REQUEST_CODE = 0
 
-//    private lateinit var linearLayoutManager: LinearLayoutManager
-
-    private var mDogs = arrayListOf<Dog>(
+    private var mDogs = arrayListOf(
         Dog("Fedya", 2, "Sdd"),
         Dog("Misha", 15, "Dss"),
         Dog("Denis", 25, "Assd"),
@@ -55,19 +53,16 @@ class MainActivity : AppCompatActivity() {
         recyclerView.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
         recyclerView.setHasFixedSize(true)
 
-        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
+        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
 
             val intent = Intent(this, AddItemActivity::class.java)
             startActivityForResult(intent, ADD_ITEM_REQUEST_CODE)
 
         }
 
-//        linearLayoutManager = LinearLayoutManager(this)
-//        recyclerView.layoutManager = linearLayoutManager
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
@@ -93,13 +88,11 @@ class MainActivity : AppCompatActivity() {
                 val stringAge = data.getStringExtra("age")
                 val stringBreed = data.getStringExtra("breed")
 
-                if (stringName.isEmpty() || stringAge.isEmpty() || stringBreed.isEmpty()) {
-                    
+                if (stringName!!.isEmpty() || stringAge!!.isEmpty() || stringBreed!!.isEmpty()) {
+                    // TODO: 23-JUNE-2020 EDIT IF SECTION
                 } else {
                     mDogs.add(Dog(stringName, stringAge.toInt(), stringBreed))
                 }
-
-
 
                 println()
             }
