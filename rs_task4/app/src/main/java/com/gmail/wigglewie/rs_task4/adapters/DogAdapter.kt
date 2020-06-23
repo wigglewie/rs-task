@@ -1,10 +1,12 @@
-package com.gmail.wigglewie.rs_task4
+package com.gmail.wigglewie.rs_task4.adapters
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.gmail.wigglewie.rs_task4.Dog
+import com.gmail.wigglewie.rs_task4.R
 import kotlinx.android.synthetic.main.rv_item.view.*
 
 class DogAdapter(private val dogList: ArrayList<Dog>) :
@@ -16,7 +18,9 @@ class DogAdapter(private val dogList: ArrayList<Dog>) :
             R.layout.rv_item, parent, false
         )
 
-        return DogViewHolder(itemView)
+        return DogViewHolder(
+            itemView
+        )
     }
 
     override fun onBindViewHolder(holder: DogViewHolder, position: Int) {

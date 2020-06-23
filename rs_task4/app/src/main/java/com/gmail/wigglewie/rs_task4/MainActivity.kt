@@ -3,16 +3,15 @@ package com.gmail.wigglewie.rs_task4
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.LinearLayout
-import android.widget.ListAdapter
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.gmail.wigglewie.rs_task4.adapters.DogAdapter
+import com.gmail.wigglewie.rs_task4.settings.SettingsActivity
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -20,7 +19,7 @@ class MainActivity : AppCompatActivity() {
     private val ADD_ITEM_REQUEST_CODE = 0
 
     private var mDogs = arrayListOf(
-        Dog("Fedya", 2, "Sdd"),
+        Dog("Fedya", 25, "Sdd"),
         Dog("Misha", 15, "Dss"),
         Dog("Denis", 25, "Assd"),
         Dog("Iliya", 18, "Wdd"),
@@ -28,19 +27,20 @@ class MainActivity : AppCompatActivity() {
         Dog("Petuh", 25, "Saaass"),
         Dog("Grove", 5, "Jasd"),
         Dog("Knowledge", 55, "Fyt"),
-        Dog("Grove", 5, "Jasd"),
-        Dog("Grove", 5, "Jasd"),
-        Dog("Grove", 5, "Jasd"),
-        Dog("Grove", 5, "Jasd"),
-        Dog("Grove", 5, "Jasd"),
-        Dog("Grove", 5, "Jasd"),
-        Dog("Grove", 5, "Jasd"),
-        Dog("Grove", 5, "Jasd"),
-        Dog("Grove", 5, "Jasd"),
-        Dog("Grove", 5, "Jasd"),
-        Dog("Grove", 5, "Jasd"),
-        Dog("Grove", 5, "Jasd"),
-        Dog("Grove", 5, "Jasd")
+        Dog("Grove", 52, "Jasd"),
+        Dog("Grove", 25, "Jasd"),
+        Dog("Grove", 57, "Jasd"),
+        Dog("Grove", 58, "Jasd"),
+        Dog("Grove", 59, "Jasd"),
+        Dog("Grove", 95, "Jasd"),
+        Dog("Grove", 58, "Jasd"),
+        Dog("Grove", 52, "Jasd"),
+        Dog("Grove", 51, "Jasd"),
+        Dog("Grove", 532, "Jasd"),
+        Dog("Grove", 15, "Jasd"),
+        Dog("Grove", 53213, "Jasd"),
+        Dog("Grove", 1, "Jasd")
+
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,7 +48,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.toolbar))
 
-        recyclerView.adapter = DogAdapter(mDogs)
+        recyclerView.adapter =
+            DogAdapter(mDogs)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
         recyclerView.setHasFixedSize(true)
@@ -57,9 +58,8 @@ class MainActivity : AppCompatActivity() {
 
             val intent = Intent(this, AddItemActivity::class.java)
             startActivityForResult(intent, ADD_ITEM_REQUEST_CODE)
-
         }
-
+        println()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -69,12 +69,30 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_filter -> {
-                Toast.makeText(this, "Action Filter", Toast.LENGTH_SHORT).show()
+            R.id.action_settings -> {
+                val intent = Intent(this, SettingsActivity::class.java)
+                startActivity(intent)
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onResume() {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        when (prefs.getString("list_preference", "1").toString()) {
+            "Name" -> {
+                mDogs.sortBy { it.name }
+            }
+            "Age" -> {
+                mDogs.sortBy { it.age }
+            }
+            "Breed" -> {
+                mDogs.sortBy { it.breed }
+            }
+        }
+        recyclerView.adapter?.notifyDataSetChanged()
+        super.onResume()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

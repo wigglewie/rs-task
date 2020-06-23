@@ -13,9 +13,7 @@ class AddItemActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_item)
-//        setSupportActionBar(findViewById(R.id.toolbar_add_item))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
 
         findViewById<Button>(R.id.button_add_item).setOnClickListener { _ ->
 
@@ -45,6 +43,10 @@ class AddItemActivity : AppCompatActivity() {
                 finish()
             }
         }
+    }
 
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }
