@@ -5,11 +5,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.gmail.wigglewie.rs_task4.Dog
 import com.gmail.wigglewie.rs_task4.R
+import com.gmail.wigglewie.rs_task4.database.dao.Dog
 import kotlinx.android.synthetic.main.rv_item.view.*
 
-class DogAdapter(private val dogList: ArrayList<Dog>) :
+class DogAdapter(private val dogList: MutableList<Dog>) :
     RecyclerView.Adapter<DogAdapter.DogViewHolder>() {
 
 

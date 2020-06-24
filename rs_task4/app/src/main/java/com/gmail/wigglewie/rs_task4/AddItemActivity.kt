@@ -25,7 +25,6 @@ class AddItemActivity : AppCompatActivity() {
             intent.putExtra("name", textName)
             intent.putExtra("age", textAge)
             intent.putExtra("breed", textBreed)
-            setResult(Activity.RESULT_OK, intent)
 
             if (textName.isEmpty() || textAge.isEmpty() || textBreed.isEmpty()) {
                 when {
@@ -40,6 +39,7 @@ class AddItemActivity : AppCompatActivity() {
                     }
                 }
             } else {
+                setResult(Activity.RESULT_OK, intent)
                 finish()
             }
         }
