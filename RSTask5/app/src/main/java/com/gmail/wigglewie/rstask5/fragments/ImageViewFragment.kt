@@ -35,11 +35,6 @@ class ImageViewFragment : Fragment() {
         return view
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -64,5 +59,4 @@ class ImageViewFragment : Fragment() {
             else -> super.onOptionsItemSelected(item)
         }
     }
-
 }

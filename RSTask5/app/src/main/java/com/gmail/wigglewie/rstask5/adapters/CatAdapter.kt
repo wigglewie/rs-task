@@ -29,7 +29,6 @@ class CatAdapter(
             .into(holder.imageDetailedView)
 
         holder.itemView.setOnClickListener { listener(currentItem) }
-
     }
 
     override fun getItemCount() = imagesList.size
@@ -37,5 +36,4 @@ class CatAdapter(
     class CatViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imageDetailedView: ImageView = itemView.rv_item_image
     }
-
 }

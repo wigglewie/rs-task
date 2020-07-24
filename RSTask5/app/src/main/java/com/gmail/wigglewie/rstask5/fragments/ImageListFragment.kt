@@ -11,11 +11,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.gmail.wigglewie.rstask5.R
 import com.gmail.wigglewie.rstask5.adapters.CatAdapter
 import com.gmail.wigglewie.rstask5.data.Cat
-import com.gmail.wigglewie.rstask5.testingretrofit.CatServiceBuilder
-import com.gmail.wigglewie.rstask5.testingretrofit.CatsEndpoints
+import com.gmail.wigglewie.rstask5.data.CatServiceBuilder
+import com.gmail.wigglewie.rstask5.data.CatsEndpoints
 import kotlinx.android.synthetic.main.fragment_image_list.recyclerView
 import retrofit2.Call
 import retrofit2.Callback
@@ -23,8 +24,7 @@ import retrofit2.Callback
 class ImageListFragment : Fragment() {
 
     var cats = listOf<Cat>()
-
-//    val catViewModel = ViewModelProvider(this).get(CatViewModel::class.java)
+    var isFirstLoad = true
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,31 +38,42 @@ class ImageListFragment : Fragment() {
         (activity as AppCompatActivity?)!!.supportActionBar?.setDisplayHomeAsUpEnabled(false)
 
         recyclerView.apply { layoutManager = GridLayoutManager(context, 2) }
-        recyclerView.setHasFixedSize(true)
+        recyclerView.setHasFixedSize(false)
 
-//        catViewModel.items.observe(this, Observer {
-//            it ?: return@Observer
-////            cats = it.toMutableList()
-//        })
+        drawCats()
 
+        recyclerView.onScrollToEnd {
+            loadCats()
+            val onSaveInstanceState = recyclerView.layoutManager?.onSaveInstanceState()
+            drawCats()
+            recyclerView.layoutManager?.onRestoreInstanceState(onSaveInstanceState)
+        }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
+    private fun drawCats() {
 
+        recyclerView.apply {
+            recyclerView.adapter = CatAdapter(cats) { item ->
+                val bundle = Bundle()
+                bundle.putString("link", item.url)
+                val fragment = ImageViewFragment()
+                fragment.arguments = bundle
 
+                fragmentManager?.beginTransaction()
+                    ?.setCustomAnimations(
+                        R.anim.card_flip_right_in,
+                        R.anim.card_flip_right_out,
+                        R.anim.card_flip_left_in,
+                        R.anim.card_flip_left_out
+                    )
+                    ?.replace(R.id.container, fragment)
+                    ?.addToBackStack(null)
+                    ?.commit()
+            }
+        }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        menu.clear()
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-
-        println()
+    private fun loadCats() {
 
         val request = CatServiceBuilder.buildService(CatsEndpoints::class.java)
         val call = request.getCats()
@@ -74,53 +85,48 @@ class ImageListFragment : Fragment() {
                 response: retrofit2.Response<List<Cat>>
             ) {
                 if (response.isSuccessful) {
-                    cats = response.body()!!
-                    recyclerView.adapter?.notifyDataSetChanged()
-                    recyclerView.apply {
-                        recyclerView.adapter = CatAdapter(cats) { item ->
-                            val bundle = Bundle()
-                            bundle.putString("link", item.url)
-                            val fragment = ImageViewFragment()
-                            fragment.arguments = bundle
-
-                            fragmentManager?.beginTransaction()
-                                ?.setCustomAnimations(
-                                    R.anim.card_flip_right_in,
-                                    R.anim.card_flip_right_out,
-                                    R.anim.card_flip_left_in,
-                                    R.anim.card_flip_left_out
-                                )
-                                ?.replace(R.id.container, fragment)
-                                ?.addToBackStack(null)
-                                ?.commit()
-                        }
+                    cats = cats + response.body()!!
+                    if (isFirstLoad) {
+                        drawCats()
+                        isFirstLoad = false
+                    } else {
+                        Toast.makeText(
+                            context,
+                            getString(R.string.toast_loaded_more_cats),
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
-                    println()
-                } else {
-                    Toast.makeText(context, "error", Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<List<Cat>>, t: Throwable) {
-                Toast.makeText(context, "error", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
             }
-
         })
-
     }
 
-    override fun onResume() {
-        super.onResume()
-        println()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        println()
+    private fun RecyclerView.onScrollToEnd(
+        onScrollNearEnd: (Unit) -> Unit
+    ) = addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            if (!recyclerView.canScrollVertically(1)) {
+                onScrollNearEnd(Unit)
+            }
+        }
+    })
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        menu.clear()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        println()
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        loadCats()
     }
 }

@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">RSTask5</string>
     <string name="settings_save">Save to Gallery</string>
+    <string name="toast_loaded_more_cats">Loaded 20 more cats :)</string>
 </resources>
