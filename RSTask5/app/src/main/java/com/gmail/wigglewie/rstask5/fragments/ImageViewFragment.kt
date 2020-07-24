@@ -10,6 +10,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
@@ -48,12 +49,33 @@ class ImageViewFragment : Fragment() {
         return when (item.itemId) {
             R.id.action_save -> {
                 val drawable = image_view_image.drawable
-                val bitmap = (drawable as BitmapDrawable).bitmap
-                MediaStore.Images.Media.insertImage(
-                    context?.contentResolver,
-                    bitmap,
-                    "cat", "cat's picture"
-                )
+                if (drawable != null) {
+                    if (drawable.isFilterBitmap) {
+                        val bitmap = (drawable as BitmapDrawable).bitmap
+                        MediaStore.Images.Media.insertImage(
+                            context?.contentResolver,
+                            bitmap,
+                            "cat", "cat's picture"
+                        )
+                        Toast.makeText(
+                            context,
+                            getString(R.string.saved_to_gallery),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        Toast.makeText(
+                            context,
+                            getString(R.string.no_gif_files_allowed),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                } else {
+                    Toast.makeText(
+                        context,
+                        getString(R.string.loading),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
                 true
             }
             else -> super.onOptionsItemSelected(item)

@@ -25,6 +25,7 @@ class ImageListFragment : Fragment() {
 
     var cats = listOf<Cat>()
     var isFirstLoad = true
+    var isLoading = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,7 +44,10 @@ class ImageListFragment : Fragment() {
         drawCats()
 
         recyclerView.onScrollToEnd {
-            loadCats()
+            if (!isLoading) {
+                isLoading = true
+                loadCats()
+            }
             val onSaveInstanceState = recyclerView.layoutManager?.onSaveInstanceState()
             drawCats()
             recyclerView.layoutManager?.onRestoreInstanceState(onSaveInstanceState)
@@ -96,6 +100,7 @@ class ImageListFragment : Fragment() {
                             Toast.LENGTH_SHORT
                         ).show()
                     }
+                    isLoading = false
                 }
             }
 
