@@ -22,10 +22,10 @@ class MainActivityPresenter(
     private var dataItems = mutableListOf<DataItem>()
 
     init {
-        dataItems = if (hasInternetConnection) {
-            model.loadXmlData()
+        if (hasInternetConnection) {
+            dataItems = model.loadXmlData()
         } else {
-            model.loadJsonData(inputStream)
+            dataItems = model.loadJsonData(inputStream)
         }
         view.initView(dataItems, isNightModeEnabled)
     }

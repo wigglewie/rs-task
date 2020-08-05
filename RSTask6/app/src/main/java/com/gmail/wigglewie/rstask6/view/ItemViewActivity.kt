@@ -1,18 +1,21 @@
 package com.gmail.wigglewie.rstask6.view
 
+import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.gmail.wigglewie.rstask6.R
 import com.gmail.wigglewie.rstask6.contract.ItemViewActivityContract
 import com.gmail.wigglewie.rstask6.data.DataItem
 import com.gmail.wigglewie.rstask6.presenter.ItemViewActivityPresenter
-import kotlinx.android.synthetic.main.activity_view_item.viewItem_layout
-import kotlinx.android.synthetic.main.activity_view_item.viewItem_textDescription
-import kotlinx.android.synthetic.main.activity_view_item.viewItem_textSpeaker
-import kotlinx.android.synthetic.main.activity_view_item.viewItem_textTitle
-import kotlinx.android.synthetic.main.activity_view_item.viewItem_textVideoDuration
-import kotlinx.android.synthetic.main.activity_view_item.viewItem_videoPreview
+import kotlinx.android.synthetic.main.activity_view_item_with_video.viewItem_layout
+import kotlinx.android.synthetic.main.activity_view_item_with_video.viewItem_textDescription
+import kotlinx.android.synthetic.main.activity_view_item_with_video.viewItem_textSpeaker
+import kotlinx.android.synthetic.main.activity_view_item_with_video.viewItem_textTitle
+import kotlinx.android.synthetic.main.activity_view_item_with_video.viewItem_textVideoDuration
+import kotlinx.android.synthetic.main.activity_view_item_with_video.viewItem_video
+import kotlinx.android.synthetic.main.activity_view_item_with_video.viewItem_videoPreview
 
 class ItemViewActivity : AppCompatActivity(), ItemViewActivityContract.View {
 
@@ -20,7 +23,7 @@ class ItemViewActivity : AppCompatActivity(), ItemViewActivityContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_view_item)
+        setContentView(R.layout.activity_view_item_with_video)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = ""
@@ -28,6 +31,25 @@ class ItemViewActivity : AppCompatActivity(), ItemViewActivityContract.View {
         val item = intent.getSerializableExtra("item") as DataItem
         val mode = intent.getBooleanExtra("mode", false)
         presenter = ItemViewActivityPresenter(this, item, mode)
+
+//        val vidAddress =
+//            "https://archive.org/download/ksnn_compilation_master_the_internet/ksnn_compilation_master_the_internet_512kb.mp4"
+        val vidAddress = Uri.parse(item.videoUrl)
+
+//        val vidUri: Uri = Uri.parse(vidAddress)
+//        viewItem_video.setVideoURI(vidUri)
+//        val vidControl = MediaController(this)
+//        vidControl.setAnchorView(viewItem_video)
+//        viewItem_video.setMediaController(vidControl)
+
+        viewItem_video.setVideoURI(vidAddress)
+        viewItem_video.setOnPreparedListener {
+            it.isLooping
+            viewItem_videoPreview.visibility = View.GONE
+            viewItem_textVideoDuration.visibility = View.GONE
+            viewItem_video.start()
+        }
+
     }
 
     override fun initView(item: DataItem?, mode: Boolean) {

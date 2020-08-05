@@ -5,33 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <ImageView
-        android:contentDescription="@string/itemView_content_description"
-        android:id="@+id/viewItem_videoPreview"
+    <VideoView
+        android:id="@+id/viewItem_video"
         android:layout_width="match_parent"
         android:layout_height="@dimen/view_item_image_height"
+        android:contentDescription="@string/itemView_content_description"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/rv_test_image" />
-
-    <TextView
-        android:id="@+id/viewItem_textVideoDuration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/view_item_duration_marginEnd"
-        android:layout_marginBottom="@dimen/view_item_duration_marginBottom"
-        android:background="@drawable/video_duration_shape"
-        android:paddingStart="@dimen/view_item_duration_paddingStart"
-        android:paddingTop="@dimen/view_item_duration_paddingTop"
-        android:paddingEnd="@dimen/view_item_duration_paddingEnd"
-        android:paddingBottom="@dimen/view_item_duration_paddingBottom"
-        android:text="@string/test_video_duration"
-        android:textColor="@color/rvColorVideoDuration"
-        app:layout_constraintBottom_toBottomOf="@+id/viewItem_videoPreview"
-        app:layout_constraintEnd_toEndOf="@+id/viewItem_videoPreview" />
 
     <TextView
         android:id="@+id/viewItem_textTitle"
@@ -46,7 +29,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewItem_videoPreview" />
+        app:layout_constraintTop_toBottomOf="@+id/viewItem_video" />
 
     <TextView
         android:id="@+id/viewItem_textSpeaker"
@@ -74,6 +57,33 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewItem_textSpeaker" />
+
+    <ImageView
+        android:id="@+id/viewItem_videoPreview"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/view_item_image_height"
+        android:contentDescription="@string/itemView_content_description"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/rv_test_image" />
+
+    <TextView
+        android:id="@+id/viewItem_textVideoDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/view_item_duration_marginEnd"
+        android:layout_marginBottom="@dimen/view_item_duration_marginBottom"
+        android:background="@drawable/video_duration_shape"
+        android:paddingStart="@dimen/view_item_duration_paddingStart"
+        android:paddingTop="@dimen/view_item_duration_paddingTop"
+        android:paddingEnd="@dimen/view_item_duration_paddingEnd"
+        android:paddingBottom="@dimen/view_item_duration_paddingBottom"
+        android:text="@string/test_video_duration"
+        android:textColor="@color/rvColorVideoDuration"
+        app:layout_constraintBottom_toBottomOf="@+id/viewItem_video"
+        app:layout_constraintEnd_toEndOf="@+id/viewItem_video" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

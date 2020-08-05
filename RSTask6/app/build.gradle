@@ -24,6 +24,21 @@ android {
         }
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    kotlin {
+        experimental {
+            coroutines 'enable'
+        }
+    }
+
 }
 
 ext {
@@ -40,10 +55,18 @@ ext {
 
     version_test_junit = '1.1.1'
     version_espresso_core = '3.2.0'
+
+    version_retrofit = '2.9.0'
 }
 
 dependencies {
-    implementation "androidx.activity:activity-ktx:$version_activity_ktx"
+
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.21"
+
+    implementation("com.squareup.retrofit2:retrofit:$version_retrofit")
+    implementation("com.squareup.retrofit2:converter-simplexml:$version_retrofit")
+
+    implementation("androidx.activity:activity-ktx:$version_activity_ktx")
     implementation("com.squareup.moshi:moshi:$version_moshi")
     kapt("com.squareup.moshi:moshi-kotlin-codegen:$version_moshi")
     implementation("androidx.recyclerview:recyclerview:$version_recyclerview")
