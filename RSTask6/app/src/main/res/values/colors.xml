@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#212121</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#484848</color>
+
+    <color name="testBackground">#EF6161</color>
+
+    <color name="rvColorTitle">#1E1E1E</color>
+    <color name="rvColorSpeaker">#454545</color>
+
+    //keep all below
+    <color name="rvColorVideoDuration">#FFFFFF</color>
+    <color name="rvColorVideoDurationBackground">#8000</color>
+
+    <color name="nightModeColorTitle">#FFFFFF</color>
+    <color name="nightModeColorDescription">#FFFFFF</color>
+    <color name="nightModeColorSpeaker">#8C8C8C</color>
+    <color name="nightModeColorBackground">#000000</color>
+
+    <color name="dayModeColorTitle">#1E1E1E</color>
+    <color name="dayModeColorDescription">#1E1E1E</color>
+    <color name="dayModeColorSpeaker">#454545</color>
+    <color name="dayModeColorBackground">#FFFFFF</color>
+</resources>
