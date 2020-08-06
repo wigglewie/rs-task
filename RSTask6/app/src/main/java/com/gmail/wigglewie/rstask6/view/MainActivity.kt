@@ -34,8 +34,6 @@ class MainActivity : AppCompatActivity(), MainActivityContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        supportActionBar?.title = "All video"
-
         val systemService = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetwork = systemService.activeNetwork
         if (activeNetwork == null) {

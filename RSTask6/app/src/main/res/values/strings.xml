@@ -7,4 +7,5 @@
     <string name="itemView_content_description">ItemViewActivity video preview</string>
     <string name="itemView_play_button_content_description">ItemViewActivity play button</string>
     <string name="menu_day_night_mode">Day/Night mode</string>
+    <string name="main_activity_label">All video</string>
 </resources>
