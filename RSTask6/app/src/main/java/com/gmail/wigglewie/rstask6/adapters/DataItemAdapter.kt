@@ -19,7 +19,6 @@ class DataItemAdapter() :
 
     private var items = mutableListOf<DataItem>()
     private var listener: ((DataItem) -> Unit)? = null
-    private var mode: Boolean = true
 
     private var colorSpeaker = 0
     private var colorTitle = 0
@@ -36,12 +35,6 @@ class DataItemAdapter() :
         listener = _listener
     }
 
-    constructor(notesList: List<DataItem>, _colorSpeaker: Int, _colorTitle: Int) : this() {
-        items = notesList.toMutableList()
-        colorSpeaker = _colorSpeaker
-        colorTitle = _colorTitle
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.rv_item, parent, false)
         return ViewHolder(view)
@@ -53,16 +46,6 @@ class DataItemAdapter() :
 
         holder.textSpeaker.setTextColor(colorSpeaker)
         holder.textTitle.setTextColor(colorTitle)
-
-//        if (mode) {
-//            //night mode
-//            holder.textSpeaker.setTextColor(colorSpeaker)
-//            holder.textTitle.setTextColor(colorTitle)
-//        } else {
-//            //day mode
-//            holder.textSpeaker.setTextColor(Color.BLUE)
-//            holder.textTitle.setTextColor(Color.BLUE)
-//        }
 
         val item = items[position]
         holder.textTitle.text = item.title
