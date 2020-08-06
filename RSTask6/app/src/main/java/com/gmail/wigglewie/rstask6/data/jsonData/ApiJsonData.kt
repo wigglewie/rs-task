@@ -1,10 +1,10 @@
-package com.gmail.wigglewie.rstask6.data
+package com.gmail.wigglewie.rstask6.data.jsonData
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class ApiData(
+data class ApiJsonData(
     @Json(name = "channel") val channel: Channel
 )
 

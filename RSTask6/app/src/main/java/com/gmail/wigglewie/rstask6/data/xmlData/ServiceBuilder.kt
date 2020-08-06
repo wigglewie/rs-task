@@ -1,4 +1,4 @@
-package com.gmail.wigglewie.test1.main
+package com.gmail.wigglewie.rstask6.data.xmlData
 
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit

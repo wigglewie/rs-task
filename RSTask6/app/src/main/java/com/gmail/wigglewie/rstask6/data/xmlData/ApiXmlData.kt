@@ -1,4 +1,4 @@
-package com.gmail.wigglewie.test1
+package com.gmail.wigglewie.rstask6.data.xmlData
 
 import org.simpleframework.xml.Attribute
 import org.simpleframework.xml.Element
@@ -7,7 +7,7 @@ import org.simpleframework.xml.ElementMap
 import org.simpleframework.xml.Root
 
 @Root(name = "rss", strict = false)
-class ApiItems @JvmOverloads constructor(
+class ApiXmlData @JvmOverloads constructor(
     @field: Element(name = "channel")
     var channel: Channel? = null
 )
