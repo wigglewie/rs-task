@@ -65,5 +65,4 @@ class DataItemAdapter() :
         val imageVideo: ImageView = itemView.rv_imageVideo
         val videoDuration: TextView = itemView.rv_textVideoDuration
     }
-
 }
