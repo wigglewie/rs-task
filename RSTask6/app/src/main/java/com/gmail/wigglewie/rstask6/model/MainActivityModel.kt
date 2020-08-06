@@ -2,11 +2,11 @@ package com.gmail.wigglewie.rstask6.model
 
 import android.util.Log
 import com.gmail.wigglewie.rstask6.contract.MainActivityContract
-import com.gmail.wigglewie.rstask6.data.ApiData
 import com.gmail.wigglewie.rstask6.data.DataItem
+import com.gmail.wigglewie.rstask6.data.jsonData.ApiJsonData
+import com.gmail.wigglewie.rstask6.data.xmlData.ApiXmlData
 import com.gmail.wigglewie.rstask6.data.xmlData.ItemEndpoint
-import com.gmail.wigglewie.test1.ApiItems
-import com.gmail.wigglewie.test1.main.ServiceBuilder
+import com.gmail.wigglewie.rstask6.data.xmlData.ServiceBuilder
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import retrofit2.Call
@@ -19,7 +19,9 @@ class MainActivityModel : MainActivityContract.Model {
     override fun loadJsonData(inputStream: InputStream): MutableList<DataItem> {
 
         val moshi: Moshi = Moshi.Builder().build()
-        val adapter: JsonAdapter<ApiData> = moshi.adapter(ApiData::class.java)
+        val adapter: JsonAdapter<ApiJsonData> = moshi.adapter(
+            ApiJsonData::class.java
+        )
         val buffer = ByteArray(inputStream.available())
         inputStream.read(buffer)
         val jsonString = String(buffer)
@@ -73,11 +75,11 @@ class MainActivityModel : MainActivityContract.Model {
 
         var items: List<DataItem>?
 
-        call.enqueue(object : Callback<ApiItems> {
+        call.enqueue(object : Callback<ApiXmlData> {
 
             override fun onResponse(
-                call: Call<ApiItems>,
-                response: Response<ApiItems>
+                call: Call<ApiXmlData>,
+                response: Response<ApiXmlData>
             ) {
                 val body = response.body()
                 items = body?.channel?.itemList?.map { item ->
@@ -98,7 +100,7 @@ class MainActivityModel : MainActivityContract.Model {
                 Log.d("xml--------------", "LOADED")
             }
 
-            override fun onFailure(call: Call<ApiItems>, t: Throwable) {
+            override fun onFailure(call: Call<ApiXmlData>, t: Throwable) {
                 Log.d("xml--------------", "ERROR")
             }
         })

@@ -1,6 +1,5 @@
 package com.gmail.wigglewie.rstask6.presenter
 
-import android.util.Log
 import com.gmail.wigglewie.rstask6.contract.MainActivityContract
 import com.gmail.wigglewie.rstask6.data.DataItem
 import com.gmail.wigglewie.rstask6.model.MainActivityModel
@@ -24,27 +23,29 @@ class MainActivityPresenter(
     init {
         if (hasInternetConnection) {
             model.loadXmlData {
-                view.initView(it, isNightModeEnabled)
+                view.initData(it)
+                view.initAdapter()
+                view.initView(isNightModeEnabled)
             }
         } else {
             dataItems = model.loadJsonData(inputStream)
         }
-        view.initView(dataItems, isNightModeEnabled)
+        view.initData(dataItems)
+        view.initAdapter()
+        view.initView(isNightModeEnabled)
     }
 
-    override fun onItemWasClicked(item: DataItem) {
-        view.itemWasClicked(item)
+    override fun onItemClicked(item: DataItem) {
+        view.itemClicked(item)
     }
 
     override fun switchDayNightMode(isNightModeEnabled: Boolean): Boolean {
         if (isNightModeEnabled) {
             this.isNightModeEnabled = false
             view.enableDayMode()
-            Log.d("mode-------------", "switched to DAY MODE")
         } else {
             this.isNightModeEnabled = true
             view.enableNightMode()
-            Log.d("mode-------------", "switched to NIGHT MODE")
         }
         return this.isNightModeEnabled
     }

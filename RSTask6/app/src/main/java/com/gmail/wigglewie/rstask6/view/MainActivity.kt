@@ -28,6 +28,8 @@ class MainActivity : AppCompatActivity(), MainActivityContract.View {
     private var nightModeSpeakerColor = 0
     private var nightModeTitleColor = 0
 
+    var dataItemAdapter: DataItemAdapter? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -48,6 +50,11 @@ class MainActivity : AppCompatActivity(), MainActivityContract.View {
 
         val inputStream = resources.openRawResource(R.raw.data)
         presenter = MainActivityPresenter(this, inputStream, hasInternetConnection)
+
+        dayModeSpeakerColor = resources.getColor(R.color.dayModeColorSpeaker)
+        dayModeTitleColor = resources.getColor(R.color.dayModeColorTitle)
+        nightModeSpeakerColor = resources.getColor(R.color.nightModeColorSpeaker)
+        nightModeTitleColor = resources.getColor(R.color.nightModeColorTitle)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -65,29 +72,31 @@ class MainActivity : AppCompatActivity(), MainActivityContract.View {
         }
     }
 
-    override fun initView(dataItems: MutableList<DataItem>, mode: Boolean) {
+    override fun initData(dataItems: MutableList<DataItem>) {
         items = dataItems
-        recyclerView.layoutManager = LinearLayoutManager(this)
+    }
 
-        dayModeSpeakerColor = resources.getColor(R.color.dayModeColorSpeaker)
-        dayModeTitleColor = resources.getColor(R.color.dayModeColorTitle)
-        nightModeSpeakerColor = resources.getColor(R.color.nightModeColorSpeaker)
-        nightModeTitleColor = resources.getColor(R.color.nightModeColorTitle)
-
-        if (mode) {
-            recyclerView.adapter =
-                DataItemAdapter(items, nightModeSpeakerColor, nightModeTitleColor) { item ->
-                    presenter?.onItemWasClicked(item)
-                }
-        } else {
-            recyclerView.adapter =
-                DataItemAdapter(items, dayModeSpeakerColor, dayModeTitleColor) { item ->
-                    presenter?.onItemWasClicked(item)
-                }
+    override fun initAdapter() {
+        dataItemAdapter = DataItemAdapter(items, dayModeSpeakerColor, dayModeTitleColor) { item ->
+            presenter?.onItemClicked(item)
         }
     }
 
-    override fun itemWasClicked(item: DataItem) {
+    override fun initView(isNightModeEnabled: Boolean) {
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = dataItemAdapter
+
+        if (isNightModeEnabled) {
+            dataItemAdapter?.colorTitle = nightModeTitleColor
+            dataItemAdapter?.colorSpeaker = nightModeSpeakerColor
+
+        } else {
+            dataItemAdapter?.colorTitle = dayModeTitleColor
+            dataItemAdapter?.colorSpeaker = dayModeSpeakerColor
+        }
+    }
+
+    override fun itemClicked(item: DataItem) {
         val intent = Intent(this, ItemViewActivity::class.java)
         intent.putExtra("item", item)
         intent.putExtra("mode", isNightModeEnabled)
@@ -97,12 +106,16 @@ class MainActivity : AppCompatActivity(), MainActivityContract.View {
     override fun enableNightMode() {
         recyclerView.setBackgroundResource(R.color.nightModeColorBackground)
         isNightModeEnabled = true
-        initView(items, isNightModeEnabled)
+        dataItemAdapter?.colorTitle = nightModeTitleColor
+        dataItemAdapter?.colorSpeaker = nightModeSpeakerColor
+        recyclerView.adapter?.notifyDataSetChanged()
     }
 
     override fun enableDayMode() {
         recyclerView.setBackgroundResource(R.color.dayModeColorBackground)
         isNightModeEnabled = false
-        initView(items, isNightModeEnabled)
+        dataItemAdapter?.colorTitle = dayModeTitleColor
+        dataItemAdapter?.colorSpeaker = dayModeSpeakerColor
+        recyclerView.adapter?.notifyDataSetChanged()
     }
 }

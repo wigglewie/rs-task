@@ -20,8 +20,8 @@ class DataItemAdapter() :
     private var items = mutableListOf<DataItem>()
     private var listener: ((DataItem) -> Unit)? = null
 
-    private var colorSpeaker = 0
-    private var colorTitle = 0
+    var colorSpeaker = 0
+    var colorTitle = 0
 
     constructor(
         notesList: List<DataItem>,

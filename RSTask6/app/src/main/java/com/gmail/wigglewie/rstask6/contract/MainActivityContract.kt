@@ -5,14 +5,16 @@ import java.io.InputStream
 
 interface MainActivityContract {
     interface View {
-        fun initView(dataItems: MutableList<DataItem>, mode: Boolean)
-        fun itemWasClicked(item: DataItem)
+        fun initData(dataItems: MutableList<DataItem>)
+        fun initAdapter()
+        fun initView(isNightModeEnabled: Boolean)
+        fun itemClicked(item: DataItem)
         fun enableNightMode()
         fun enableDayMode()
     }
 
     interface Presenter {
-        fun onItemWasClicked(item: DataItem)
+        fun onItemClicked(item: DataItem)
         fun switchDayNightMode(isNightModeEnabled: Boolean): Boolean
     }
 
