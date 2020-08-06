@@ -41,7 +41,6 @@ class MainActivity : AppCompatActivity(), MainActivityContract.View {
             Toast.makeText(this, "Loaded from JSON \n Some data can be missing", Toast.LENGTH_LONG)
                 .show()
         } else {
-//            for xml load
             hasInternetConnection = true
             Toast.makeText(this, "Connected", Toast.LENGTH_SHORT)
                 .show()
