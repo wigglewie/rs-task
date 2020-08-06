@@ -23,7 +23,9 @@ class MainActivityPresenter(
 
     init {
         if (hasInternetConnection) {
-            dataItems = model.loadXmlData()
+            model.loadXmlData {
+                view.initView(it, isNightModeEnabled)
+            }
         } else {
             dataItems = model.loadJsonData(inputStream)
         }
@@ -46,5 +48,4 @@ class MainActivityPresenter(
         }
         return this.isNightModeEnabled
     }
-
 }

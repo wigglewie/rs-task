@@ -5,16 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <VideoView
+    <com.google.android.exoplayer2.ui.PlayerView
         android:id="@+id/viewItem_video"
         android:layout_width="match_parent"
         android:layout_height="@dimen/view_item_image_height"
         android:contentDescription="@string/itemView_content_description"
-        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/rv_test_image" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/viewItem_textTitle"
@@ -84,6 +82,18 @@
         android:textColor="@color/rvColorVideoDuration"
         app:layout_constraintBottom_toBottomOf="@+id/viewItem_video"
         app:layout_constraintEnd_toEndOf="@+id/viewItem_video" />
+
+    <ImageButton
+        android:contentDescription="@string/itemView_play_button_content_description"
+        android:id="@+id/viewItem_video_play_button"
+        android:background="@null"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_play"
+        app:layout_constraintBottom_toBottomOf="@+id/viewItem_video"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/viewItem_video"
+        app:layout_constraintTop_toTopOf="@+id/viewItem_video" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

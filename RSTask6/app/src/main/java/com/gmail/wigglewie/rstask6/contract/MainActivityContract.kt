@@ -18,6 +18,6 @@ interface MainActivityContract {
 
     interface Model {
         fun loadJsonData(inputStream: InputStream): MutableList<DataItem>
-        fun loadXmlData(): MutableList<DataItem>
+        fun loadXmlData(callback: (items: MutableList<DataItem>) -> Unit)
     }
 }

@@ -61,19 +61,17 @@ class MainActivityModel : MainActivityContract.Model {
                 items.video?.videoUrl
             )
         }
-
-        Log.d("model", "loaded")
+        Log.d("json--------------", "LOADED")
 
         return items!!.toMutableList()
     }
 
-    override fun loadXmlData(): MutableList<DataItem> {
+    override fun loadXmlData(callback: (items: MutableList<DataItem>) -> Unit) {
 
         val request = ServiceBuilder.buildService(ItemEndpoint::class.java)
         val call = request.getXmlData()
 
-        var items: List<DataItem>? = null
-        var isLoading = true
+        var items: List<DataItem>?
 
         call.enqueue(object : Callback<ApiItems> {
 
@@ -95,17 +93,14 @@ class MainActivityModel : MainActivityContract.Model {
                         item.videoInfo?.videoUrl
                     )
                 }
-                isLoading = false
                 val items1 = items
+                callback(items1!!.toMutableList())
                 Log.d("xml--------------", "LOADED")
-                println()
             }
 
             override fun onFailure(call: Call<ApiItems>, t: Throwable) {
-                println()
+                Log.d("xml--------------", "ERROR")
             }
         })
-
-        return mutableListOf()
     }
 }

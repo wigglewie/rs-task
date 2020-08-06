@@ -9,6 +9,11 @@ import com.gmail.wigglewie.rstask6.R
 import com.gmail.wigglewie.rstask6.contract.ItemViewActivityContract
 import com.gmail.wigglewie.rstask6.data.DataItem
 import com.gmail.wigglewie.rstask6.presenter.ItemViewActivityPresenter
+import com.google.android.exoplayer2.SimpleExoPlayer
+import com.google.android.exoplayer2.source.MediaSource
+import com.google.android.exoplayer2.source.ProgressiveMediaSource
+import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
+import com.google.android.exoplayer2.util.Util
 import kotlinx.android.synthetic.main.activity_view_item_with_video.viewItem_layout
 import kotlinx.android.synthetic.main.activity_view_item_with_video.viewItem_textDescription
 import kotlinx.android.synthetic.main.activity_view_item_with_video.viewItem_textSpeaker
@@ -16,10 +21,12 @@ import kotlinx.android.synthetic.main.activity_view_item_with_video.viewItem_tex
 import kotlinx.android.synthetic.main.activity_view_item_with_video.viewItem_textVideoDuration
 import kotlinx.android.synthetic.main.activity_view_item_with_video.viewItem_video
 import kotlinx.android.synthetic.main.activity_view_item_with_video.viewItem_videoPreview
+import kotlinx.android.synthetic.main.activity_view_item_with_video.viewItem_video_play_button
 
 class ItemViewActivity : AppCompatActivity(), ItemViewActivityContract.View {
 
     private var presenter: ItemViewActivityPresenter? = null
+    private var exoPlayer: SimpleExoPlayer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,24 +39,25 @@ class ItemViewActivity : AppCompatActivity(), ItemViewActivityContract.View {
         val mode = intent.getBooleanExtra("mode", false)
         presenter = ItemViewActivityPresenter(this, item, mode)
 
-//        val vidAddress =
-//            "https://archive.org/download/ksnn_compilation_master_the_internet/ksnn_compilation_master_the_internet_512kb.mp4"
         val vidAddress = Uri.parse(item.videoUrl)
 
-//        val vidUri: Uri = Uri.parse(vidAddress)
-//        viewItem_video.setVideoURI(vidUri)
-//        val vidControl = MediaController(this)
-//        vidControl.setAnchorView(viewItem_video)
-//        viewItem_video.setMediaController(vidControl)
+        exoPlayer = SimpleExoPlayer.Builder(this).build()
 
-        viewItem_video.setVideoURI(vidAddress)
-        viewItem_video.setOnPreparedListener {
-            it.isLooping
+        viewItem_video.player = exoPlayer
+
+        val dataSourceFactory = DefaultDataSourceFactory(
+            this,
+            Util.getUserAgent(this, "RSTask6")
+        )
+        val videoSource: MediaSource = ProgressiveMediaSource.Factory(dataSourceFactory)
+            .createMediaSource(vidAddress)
+
+        viewItem_video_play_button.setOnClickListener {
+            exoPlayer?.prepare(videoSource, true, false)
             viewItem_videoPreview.visibility = View.GONE
             viewItem_textVideoDuration.visibility = View.GONE
-            viewItem_video.start()
+            viewItem_video_play_button.visibility = View.GONE
         }
-
     }
 
     override fun initView(item: DataItem?, mode: Boolean) {
@@ -72,6 +80,12 @@ class ItemViewActivity : AppCompatActivity(), ItemViewActivityContract.View {
             viewItem_textSpeaker.setTextColor(resources.getColor(R.color.dayModeColorSpeaker))
             viewItem_textDescription.setTextColor(resources.getColor(R.color.dayModeColorDescription))
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        exoPlayer?.release()
+        exoPlayer = null
     }
 
     override fun onSupportNavigateUp(): Boolean {

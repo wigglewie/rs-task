@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity(), MainActivityContract.View {
                 .show()
         } else {
 //            for xml load
-            hasInternetConnection = false
+            hasInternetConnection = true
             Toast.makeText(this, "Connected", Toast.LENGTH_SHORT)
                 .show()
         }
