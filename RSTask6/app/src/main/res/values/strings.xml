@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">RSTask6</string>
+    <string name="test_speaker">Emily Pilloton</string>
+    <string name="test_title">A one-man orchestra of the imagination</string>
+    <string name="test_video_duration">15:21</string>
+    <string name="test_description">Musical innovator Andrew Bird winds together his trademark violin technique with xylophone, vocals and sophisticated electronic looping. Add in his uncanny ability to whistle anything, and he becomes a riveting one-man orchestra.</string>
+    <string name="itemView_content_description">ItemViewActivity video preview</string>
+    <string name="itemView_play_button_content_description">ItemViewActivity play button</string>
+    <string name="menu_day_night_mode">Day/Night mode</string>
+    <string name="main_activity_label">All video</string>
+</resources>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rv_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/rv_item_padding">
+
+    <com.github.siyamed.shapeimageview.RoundedImageView
+        android:id="@+id/rv_imageVideo"
+        android:layout_width="@dimen/rv_image_width"
+        android:layout_height="@dimen/rv_image_height"
+        android:scaleType="centerCrop"
+        android:src="@drawable/rv_test_image"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:siRadius="5dp" />
+
+    <TextView
+        android:id="@+id/rv_textVideoDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/rv_video_duration_marginEnd"
+        android:layout_marginBottom="@dimen/rv_video_duration_marginBottom"
+        android:text="@string/test_video_duration"
+        android:background="@drawable/video_duration_shape"
+        android:paddingStart="@dimen/rv_video_duration_paddingStart"
+        android:paddingTop="@dimen/rv_video_duration_paddingTop"
+        android:paddingEnd="@dimen/rv_video_duration_paddingEnd"
+        android:paddingBottom="@dimen/rv_video_duration_paddingBottom"
+        android:textColor="@color/rvColorVideoDuration"
+        app:layout_constraintBottom_toBottomOf="@+id/rv_imageVideo"
+        app:layout_constraintEnd_toEndOf="@+id/rv_imageVideo" />
+
+    <TextView
+        android:id="@+id/rv_textSpeaker"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/rv_item_padding"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="@string/test_speaker"
+        android:textColor="@color/rvColorSpeaker"
+        android:textSize="@dimen/rv_text_speaker_textSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/rv_imageVideo"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/rv_textTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/rv_item_padding"
+        android:ellipsize="end"
+        android:maxLines="4"
+        android:text="@string/test_title"
+        android:textColor="@color/rvColorTitle"
+        android:textSize="@dimen/rv_text_title_textSize"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/rv_imageVideo"
+        app:layout_constraintTop_toBottomOf="@id/rv_textSpeaker" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

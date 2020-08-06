@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">RSTask5</string>
+    <string name="settings_save">Save</string>
+    <string name="toast_loaded_more_cats">Loaded 20 more cats :)</string>
+    <string name="no_gif_files_allowed">No GIFs allowed</string>
+    <string name="saved_to_gallery">Saved to Gallery</string>
+    <string name="loading">Loading…</string>
+</resources>

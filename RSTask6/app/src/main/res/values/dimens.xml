@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="rv_item_padding">15dp</dimen>
+
+    <dimen name="rv_video_duration_paddingStart">10dp</dimen>
+    <dimen name="rv_video_duration_paddingEnd">10dp</dimen>
+    <dimen name="rv_video_duration_paddingTop">3dp</dimen>
+    <dimen name="rv_video_duration_paddingBottom">3dp</dimen>
+    <dimen name="rv_video_duration_marginEnd">5dp</dimen>
+    <dimen name="rv_video_duration_marginBottom">5dp</dimen>
+
+    <dimen name="rv_image_width">180dp</dimen>
+    <dimen name="rv_image_height">130dp</dimen>
+
+    <dimen name="rv_text_speaker_textSize">20sp</dimen>
+
+    <dimen name="rv_text_title_textSize">20sp</dimen>
+
+    <dimen name="view_item_image_height">300dp</dimen>
+
+    <dimen name="view_item_duration_marginEnd">15dp</dimen>
+    <dimen name="view_item_duration_marginBottom">15dp</dimen>
+    <dimen name="view_item_duration_paddingStart">10dp</dimen>
+    <dimen name="view_item_duration_paddingTop">3dp</dimen>
+    <dimen name="view_item_duration_paddingEnd">10dp</dimen>
+    <dimen name="view_item_duration_paddingBottom">3dp</dimen>
+
+    <dimen name="view_item_title_textSize">25sp</dimen>
+    <dimen name="view_item_title_marginStart">15dp</dimen>
+    <dimen name="view_item_title_marginTop">20dp</dimen>
+    <dimen name="view_item_title_marginEnd">15dp</dimen>
+
+    <dimen name="view_item_speaker_marginStart">15dp</dimen>
+    <dimen name="view_item_speaker_marginTop">5dp</dimen>
+    <dimen name="view_item_speaker_marginEnd">15dp</dimen>
+    <dimen name="view_item_speaker_textSize">15sp</dimen>
+
+    <dimen name="view_item_description_marginStart">15dp</dimen>
+    <dimen name="view_item_description_marginTop">30dp</dimen>
+    <dimen name="view_item_description_marginEnd">15dp</dimen>
+    <dimen name="view_item_description_textSize">16sp</dimen>
+</resources>
