@@ -27,6 +27,9 @@ class ItemViewActivity : AppCompatActivity(), ItemViewActivityContract.View {
 
     private var presenter: ItemViewActivityPresenter? = null
     private var exoPlayer: SimpleExoPlayer? = null
+    private var item: DataItem? = null
+    private var mode: Boolean = false
+    private var videoSource: MediaSource? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,29 +38,33 @@ class ItemViewActivity : AppCompatActivity(), ItemViewActivityContract.View {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = ""
 
-        val item = intent.getSerializableExtra("item") as DataItem
-        val mode = intent.getBooleanExtra("mode", false)
-        presenter = ItemViewActivityPresenter(this, item, mode)
+        item = intent.getSerializableExtra("item") as DataItem
+        mode = intent.getBooleanExtra("mode", false)
+        presenter = ItemViewActivityPresenter(this, item!!, mode)
+    }
 
-        val vidAddress = Uri.parse(item.videoUrl)
-
+    override fun initPlayer() {
+        val vidAddress = Uri.parse(item?.videoUrl)
         exoPlayer = SimpleExoPlayer.Builder(this).build()
-
         viewItem_video.player = exoPlayer
 
         val dataSourceFactory = DefaultDataSourceFactory(
             this,
             Util.getUserAgent(this, "RSTask6")
         )
-        val videoSource: MediaSource = ProgressiveMediaSource.Factory(dataSourceFactory)
-            .createMediaSource(vidAddress)
+        videoSource = ProgressiveMediaSource.Factory(dataSourceFactory)
+            .createMediaSource(vidAddress) as MediaSource
 
         viewItem_video_play_button.setOnClickListener {
-            exoPlayer?.prepare(videoSource, true, false)
-            viewItem_videoPreview.visibility = View.GONE
-            viewItem_textVideoDuration.visibility = View.GONE
-            viewItem_video_play_button.visibility = View.GONE
+            presenter?.onPlayButtonClicked()
         }
+    }
+
+    override fun playButtonClicked() {
+        exoPlayer?.prepare(videoSource!!, true, false)
+        viewItem_videoPreview.visibility = View.GONE
+        viewItem_textVideoDuration.visibility = View.GONE
+        viewItem_video_play_button.visibility = View.GONE
     }
 
     override fun initView(item: DataItem?, mode: Boolean) {

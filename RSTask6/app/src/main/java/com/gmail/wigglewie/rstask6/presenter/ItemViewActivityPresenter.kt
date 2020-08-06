@@ -11,15 +11,15 @@ class ItemViewActivityPresenter(
     ItemViewActivityContract.Presenter {
 
     private var view: ItemViewActivityContract.View = _view
-
     private var item: DataItem = _item
     private var mode: Boolean = _mode
 
     init {
         view.initView(item, mode)
+        view.initPlayer()
     }
 
-    override fun onVideoClick() {
-
+    override fun onPlayButtonClicked() {
+        view.playButtonClicked()
     }
 }
