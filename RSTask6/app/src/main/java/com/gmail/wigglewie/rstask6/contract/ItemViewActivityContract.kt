@@ -4,7 +4,7 @@ import com.gmail.wigglewie.rstask6.data.DataItem
 
 interface ItemViewActivityContract {
     interface View {
-        fun initView(item: DataItem?, mode: Boolean)
+        fun initView(item: DataItem?, isNightModeEnabled: Boolean)
         fun initPlayer()
         fun playButtonClicked()
     }

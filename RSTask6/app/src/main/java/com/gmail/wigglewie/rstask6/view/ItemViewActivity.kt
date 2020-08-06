@@ -2,6 +2,7 @@ package com.gmail.wigglewie.rstask6.view
 
 import android.net.Uri
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
@@ -28,19 +29,32 @@ class ItemViewActivity : AppCompatActivity(), ItemViewActivityContract.View {
     private var presenter: ItemViewActivityPresenter? = null
     private var exoPlayer: SimpleExoPlayer? = null
     private var item: DataItem? = null
-    private var mode: Boolean = false
+    private var isNightModeEnabled: Boolean = false
     private var videoSource: MediaSource? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_item_with_video)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = ""
+        supportActionBar?.hide()
 
         item = intent.getSerializableExtra("item") as DataItem
-        mode = intent.getBooleanExtra("mode", false)
-        presenter = ItemViewActivityPresenter(this, item!!, mode)
+        isNightModeEnabled = intent.getBooleanExtra("mode", false)
+        presenter = ItemViewActivityPresenter(this, item!!, isNightModeEnabled)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
+        super.onSaveInstanceState(outState, outPersistentState)
+        outState.putSerializable("item", item)
+        outState.putBoolean("mode", isNightModeEnabled)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        initView(
+            savedInstanceState.get("item") as DataItem,
+            savedInstanceState.get("mode") as Boolean
+        )
     }
 
     override fun initPlayer() {
@@ -67,7 +81,7 @@ class ItemViewActivity : AppCompatActivity(), ItemViewActivityContract.View {
         viewItem_video_play_button.visibility = View.GONE
     }
 
-    override fun initView(item: DataItem?, mode: Boolean) {
+    override fun initView(item: DataItem?, isNightModeEnabled: Boolean) {
         Glide.with(viewItem_videoPreview.context)
             .load(item?.imageUrl)
             .into(viewItem_videoPreview)
@@ -76,7 +90,7 @@ class ItemViewActivity : AppCompatActivity(), ItemViewActivityContract.View {
         viewItem_textSpeaker.text = item?.speaker
         viewItem_textDescription.text = item?.description
 
-        if (mode) {
+        if (isNightModeEnabled) {
             viewItem_layout.setBackgroundResource(R.color.nightModeColorBackground)
             viewItem_textTitle.setTextColor(resources.getColor(R.color.nightModeColorTitle))
             viewItem_textSpeaker.setTextColor(resources.getColor(R.color.nightModeColorSpeaker))
@@ -93,10 +107,5 @@ class ItemViewActivity : AppCompatActivity(), ItemViewActivityContract.View {
         super.onDestroy()
         exoPlayer?.release()
         exoPlayer = null
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return true
     }
 }

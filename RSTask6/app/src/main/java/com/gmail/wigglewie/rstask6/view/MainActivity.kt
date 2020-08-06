@@ -34,6 +34,8 @@ class MainActivity : AppCompatActivity(), MainActivityContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        supportActionBar?.title = resources.getString(R.string.main_activity_label)
+
         val systemService = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetwork = systemService.activeNetwork
         if (activeNetwork == null) {
