@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group>
+        <item
+            android:id="@+id/nav_item_top_stories"
+            android:title="@string/topic_top_stories" />
+    </group>
+
+    <item android:title="@string/topic_group_feeds_by_region">
+        <menu>
+            <item
+                android:id="@+id/nav_item_middle_east"
+                android:title="@string/topic_middle_east" />
+            <item
+                android:id="@+id/nav_item_africa"
+                android:title="@string/topic_africa" />
+            <item
+                android:id="@+id/nav_item_europe"
+                android:title="@string/topic_europe" />
+            <item
+                android:id="@+id/nav_item_americas"
+                android:title="@string/topic_americas" />
+            <item
+                android:id="@+id/nav_item_asia_pacific"
+                android:title="@string/topic_asia_pacific" />
+        </menu>
+    </item>
+
+    <item android:title="@string/topic_group_feeds_by_topic">
+        <menu>
+            <item
+                android:id="@+id/nav_item_health"
+                android:title="@string/topic_health" />
+            <item
+                android:id="@+id/nav_item_un_affairs"
+                android:title="@string/topic_un_affairs" />
+            <item
+                android:id="@+id/nav_item_law_and_crime_prevention"
+                android:title="@string/topic_law_and_crime_prevention" />
+            <item
+                android:id="@+id/nav_item_human_rights"
+                android:title="@string/topic_human_rights" />
+            <item
+                android:id="@+id/nav_item_humanitarian_aid"
+                android:title="@string/topic_humanitarian_aid" />
+            <item
+                android:id="@+id/nav_item_climate_change"
+                android:title="@string/topic_climate_change" />
+            <item
+                android:id="@+id/nav_item_culture_and_education"
+                android:title="@string/topic_culture_and_education" />
+            <item
+                android:id="@+id/nav_item_economic_development"
+                android:title="@string/topic_economic_development" />
+            <item
+                android:id="@+id/nav_item_women"
+                android:title="@string/topic_women" />
+            <item
+                android:id="@+id/nav_item_peace_and_security"
+                android:title="@string/topic_peace_and_security" />
+            <item
+                android:id="@+id/nav_item_migrants_and_refugees"
+                android:title="@string/topic_migrants_and_refugees" />
+            <item
+                android:id="@+id/nav_item_sdgs"
+                android:title="@string/topic_sdgs" />
+
+        </menu>
+    </item>
+</menu>
