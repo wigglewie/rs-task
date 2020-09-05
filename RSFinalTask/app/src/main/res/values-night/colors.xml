@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="color_rv_background">#292929</color>
+    <color name="color_rv_title">#CDCDCD</color>
+    <color name="color_rv_pubDate">#BCBCBC</color>
+
+    <color name="color_iv_background">#232323</color>
+    <color name="color_iv_topic">#CDCDCD</color>
+    <color name="color_iv_splitter">#BCBCBC</color>
+    <color name="color_iv_pubDate">#BCBCBC</color>
+    <color name="color_iv_title">#CDCDCD</color>
+    <color name="color_iv_description">#CDCDCD</color>
+    <color name="color_iv_buttonText">#CDCDCD</color>
+
+</resources>

@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/item_view_layout_colorBackground_day_mode"
-    android:paddingBottom="10dp">
+    android:background="@color/color_rv_background"
+    android:paddingBottom="@dimen/rv_item_margin">
 
     <TextView
         android:id="@+id/rv_item_text_title"
@@ -17,7 +17,7 @@
         android:ellipsize="end"
         android:maxLines="4"
         android:text="@string/title_text"
-        android:textColor="@color/item_colorTitle"
+        android:textColor="@color/color_rv_title"
         android:textSize="@dimen/rv_item_text_title_size"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@id/rv_item_image"
@@ -31,12 +31,13 @@
         android:layout_marginStart="@dimen/rv_item_margin"
         android:layout_marginTop="@dimen/rv_item_text_date_margin"
         android:text="@string/pubdate_text"
-        android:textColor="@color/item_colorDate"
+        android:textColor="@color/color_rv_pubDate"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/rv_item_text_title" />
 
 
     <ImageView
+        android:contentDescription="@string/content_desc_recyclerview_image"
         android:id="@+id/rv_item_image"
         android:layout_width="@dimen/rv_item_image_width"
         android:layout_height="@dimen/rv_item_image_height"

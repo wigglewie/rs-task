@@ -1,5 +1,6 @@
 package com.gmail.wigglewie.rsfinaltask.feature.data.network
 
+import android.util.Log
 import com.gmail.wigglewie.rsfinaltask.R
 import com.gmail.wigglewie.rsfinaltask.feature.data.NewsItem
 import retrofit2.Call
@@ -85,24 +86,22 @@ class NetworkData @Inject constructor() {
                 items = body?.channel?.itemList?.map { item ->
                     val pubDate = item.pubDate
                     NewsItem(
-                        item.title,
                         item.link,
+                        item.title,
                         item.description?.trimEnd(),
                         item.imageData?.imageUrl,
                         pubDate?.substring(0, pubDate.length.minus(15))
                     )
                 }
 
-                callback(items?.toMutableList(), "success")
-//                var items1: List<NewsItem>? = null
-//                callback(items1?.toMutableList(), "error")
-//                Log.d("xml--------------", "LOADED")
+                callback(items?.toMutableList(), "SUCCESS")
+//                callback(items?.toMutableList(), "ERROR")
+                Log.d("xml--------------", "LOADED")
             }
 
             override fun onFailure(call: Call<ApiXmlData>, t: Throwable) {
-                val error: MutableList<NewsItem>? = null
-                callback(error?.toMutableList(), "error")
-//                Log.d("xml--------------", t.toString())
+                callback(items?.toMutableList(), "ERROR")
+                Log.d("xml--------------", t.toString())
             }
         })
     }

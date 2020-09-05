@@ -1,12 +1,9 @@
 <resources>
-    <!-- Base application theme. -->
     <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
@@ -15,43 +12,11 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="colorPrimary">@color/colorTestDarkTheme</item>
-        <item name="colorPrimaryDark">@color/colorTestDarkTheme</item>
-        <!--        <item name="android:windowLightStatusBar">true</item>-->
+        <item name="colorPrimary">@color/colorToolbar</item>
+        <item name="colorPrimaryDark">@color/colorToolbar</item>
+        <item name="colorAccent">@color/color_rv_title</item>
         <item name="android:actionMenuTextColor">@android:color/white</item>
         <item name="colorControlNormal">@color/colorPrimary</item>
-<!--        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>-->
-    </style>
-
-<!--    <style name="DrawerArrowStyle" parent="@style/Widget.AppCompat.DrawerArrowToggle">-->
-<!--        <item name="spinBars">true</item>-->
-<!--        <item name="color">@color/colorPrimary</item>-->
-<!--    </style>-->
-
-    <style name="AppTheme.Dark">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-
-        <item name="color">@color/testColor1</item>
-        <item name="colorSecondary">@color/testColor1</item>
-        <item name="colorPrimary">@color/testColor1</item>
-        <item name="colorAccent">@color/testColor1</item>
-        <item name="colorBackgroundFloating">@color/testColor1</item>
-        <item name="colorButtonNormal">@color/testColor1</item>
-        <item name="colorControlActivated">@color/testColor1</item>
-        <item name="colorControlHighlight">@color/testColor1</item>
-        <item name="colorControlNormal">@color/testColor1</item>
-        <item name="colorError">@color/testColor1</item>
-        <item name="colorOnBackground">@color/testColor1</item>
-        <item name="colorOnError">@color/testColor1</item>
-        <item name="colorOnPrimary">@color/testColor1</item>
-        <item name="colorOnPrimarySurface">@color/testColor1</item>
-        <item name="colorOnSecondary">@color/testColor1</item>
-        <item name="colorSurface">@color/testColor1</item>
-        <item name="colorSwitchThumbNormal">@color/testColor1</item>
-
-        <item name="android:windowLightStatusBar">true</item>
-        <item name="android:actionMenuTextColor">@android:color/white</item>
     </style>
 
 </resources>

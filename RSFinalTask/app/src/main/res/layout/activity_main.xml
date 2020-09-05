@@ -5,12 +5,12 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/item_view_layout_colorBackground_day_mode"
     tools:openDrawer="start">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/toolbar_main_layout"
@@ -33,19 +33,10 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar_main_layout"
-            tools:listitem="@layout/rv_item" />
-
         <pl.droidsonroids.gif.GifImageView
             android:id="@+id/activity_main_loader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:scaleType="center"
             android:src="@drawable/loader"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -53,24 +44,24 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar_main_layout" />
 
-        <!--    <TextView-->
-        <!--        android:id="@+id/activity_main_error_msg"-->
-        <!--        android:layout_width="wrap_content"-->
-        <!--        android:layout_height="wrap_content"-->
-        <!--        android:layout_marginTop="60dp"-->
-        <!--        android:gravity="center"-->
-        <!--        android:textSize="15sp"-->
-        <!--        android:text="Error on loading data. Updating data by publisher. Come back later."-->
-        <!--        android:textColor="@color/item_vew_colorTitle" />-->
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <com.google.android.material.navigation.NavigationView
-            android:id="@+id/nav_view"
-            android:layout_width="wrap_content"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="start"
-            app:headerLayout="@layout/nd_header"
-            app:menu="@menu/menu_nd_activity_main" />
+            android:background="@color/color_rv_background"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_main_layout"
+            tools:listitem="@layout/rv_item" />
+
+
+    </LinearLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/nd_header"
+        app:menu="@menu/menu_nd_activity_main" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

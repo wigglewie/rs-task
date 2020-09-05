@@ -10,15 +10,20 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.Observer
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gmail.wigglewie.rsfinaltask.R
 import com.gmail.wigglewie.rsfinaltask.adapters.DataItemAdapter
 import com.gmail.wigglewie.rsfinaltask.feature.MainViewModel
 import com.gmail.wigglewie.rsfinaltask.feature.data.NewsItem
+import com.gmail.wigglewie.rsfinaltask.view.ItemViewActivity.Companion.RESULT_ADD_TO_FAVORITES
+import com.gmail.wigglewie.rsfinaltask.view.ItemViewActivity.Companion.RESULT_REMOVE_FROM_FAVORITES
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.activity_main_loader
@@ -30,23 +35,26 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var drawer: DrawerLayout
     private lateinit var toggle: ActionBarDrawerToggle
 
-    private var isLoading: Boolean = true
+    private var isDarkModeEnabled: Boolean = false
 
     private val viewModel by viewModels<MainViewModel>()
     private var topic = R.string.topic_top_stories
 
     private var news = mutableListOf<NewsItem>()
+    private var newsFromDB = mutableListOf<NewsItem>()
+
+    companion object {
+        const val REQUEST_CODE_FAVORITES = 0
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         val toolbar: Toolbar = findViewById(R.id.toolbar_main)
-
         setSupportActionBar(toolbar)
 
         drawer = findViewById(R.id.drawer_layout)
-
         toggle = ActionBarDrawerToggle(
             this,
             drawer,
@@ -65,11 +73,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         if (savedInstanceState != null) {
             topic = savedInstanceState.getInt("TOPIC")
             recyclerView.layoutManager?.onRestoreInstanceState(savedInstanceState)
-            val bundle = savedInstanceState.getBundle("DATA")
-            val parcelableArrayList = bundle?.getParcelableArrayList<NewsItem>("LIST")
-            val toMutableList = parcelableArrayList?.toMutableList()
-            if (toMutableList != null) {
-                news = toMutableList
+
+            val bundleNewsItems = savedInstanceState.getBundle("DATA")
+            val parcelableNewsItems =
+                bundleNewsItems?.getParcelableArrayList<NewsItem>("NEWS_ITEMS")
+            val mutableNewsItems = parcelableNewsItems?.toMutableList()
+            if (mutableNewsItems != null) {
+                news = mutableNewsItems
             }
             if (news.size == 0) {
                 loadData(topic)
@@ -79,6 +89,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             loadData(topic)
         }
         supportActionBar?.setTitle(topic)
+
+        val newsObserver = Observer<MutableList<NewsItem>> {
+            newsFromDB = it
+            if (topic == R.string.topic_favorites) {
+                newsFromDB.reverse()
+                showData(newsFromDB)
+            }
+        }
+        viewModel.getLocalData().observe(this, newsObserver)
+
+        initItemDecorator()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -88,47 +109,66 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             "LAYOUT_MANAGER_STATE",
             recyclerView.layoutManager?.onSaveInstanceState()
         )
-        val bundle = Bundle().apply {
-            putParcelableArrayList("LIST", ArrayList<Parcelable>(news))
+        val bundleNewsItems = Bundle().apply {
+            putParcelableArrayList("NEWS_ITEMS", ArrayList<Parcelable>(news))
         }
-        outState.putBundle("DATA", bundle)
+        outState.putBundle("DATA", bundleNewsItems)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        isDarkModeEnabled = prefs.getBoolean(getString(R.string.key_dark_mode), false)
+        if (topic == R.string.topic_favorites) {
+            newsFromDB.reverse()
+            showData(newsFromDB)
+        } else {
+            showData(news)
+        }
+        if (isDarkModeEnabled) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
+    }
+
+    private fun initItemDecorator() {
+        recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
     }
 
     private fun loadData(topic: Int) {
         supportActionBar?.setTitle(topic)
-        isLoading = true
-        viewModel.getNetworkData(topic) { items, result ->
-            if (result != "error") {
-                if (items != null) {
-                    news = items
+        if (topic == R.string.topic_favorites) {
+            newsFromDB.reverse()
+            showData(newsFromDB)
+        } else {
+            viewModel.getNetworkData(topic) { items, result ->
+                if (result != "ERROR") {
+                    if (items != null) {
+                        news = items
+                    }
+                    activity_main_loader.visibility = View.GONE
+                    recyclerView.visibility = View.VISIBLE
+                    showData(news)
+                } else {
+                    activity_main_loader.visibility = View.VISIBLE
+                    recyclerView.visibility = View.GONE
                 }
-                isLoading = false
-                activity_main_loader.visibility = View.GONE
-                recyclerView.visibility = View.VISIBLE
-                showData(news)
-            } else {
-                activity_main_loader.visibility = View.VISIBLE
-                showErrorAtLoading()
             }
         }
     }
 
     private fun showData(items: MutableList<NewsItem>) {
+        supportActionBar?.setTitle(topic)
         activity_main_loader.visibility = View.GONE
-        recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
-        val dataItemAdapter = DataItemAdapter(items) { item ->
+        recyclerView.setHasFixedSize(true)
+        recyclerView.adapter = DataItemAdapter(items) { item ->
             val intent = Intent(this, ItemViewActivity::class.java)
-            intent.putExtra("item", item)
-            intent.putExtra("topic", topic)
-            startActivity(intent)
+            intent.putExtra("ITEM", item)
+            intent.putExtra("TOPIC", topic)
+            intent.putExtra("IS_DARK_MODE_ENABLED", isDarkModeEnabled)
+            startActivityForResult(intent, REQUEST_CODE_FAVORITES)
         }
-        recyclerView.adapter = dataItemAdapter
-    }
-
-    private fun showErrorAtLoading() {
-        recyclerView.visibility = View.GONE
-        // TODO error message
-//        rv_item_loader.visibility = View.GONE
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
@@ -149,16 +189,46 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         return when (item.itemId) {
-            R.id.menu_main_activity_action_switch_mode -> {
-                println()
+            R.id.menu_main_activity_action_settings -> {
+                startActivity(Intent(this, SettingsActivity::class.java))
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
+        if (data != null) {
+            val newsItem = data.getParcelableExtra("ITEM") as NewsItem
+            when (resultCode) {
+                RESULT_ADD_TO_FAVORITES -> {
+                    addNewsItemToDB(newsItem)
+                }
+                RESULT_REMOVE_FROM_FAVORITES -> {
+                    removeNewsItemFromDB(newsItem)
+                }
+                else -> super.onActivityResult(requestCode, resultCode, data)
+            }
+        }
+    }
+
+    private fun removeNewsItemFromDB(newsItem: NewsItem?) {
+        viewModel.removeNewsItem(newsItem)
+    }
+
+    private fun addNewsItemToDB(newsItem: NewsItem?) {
+        viewModel.addNewsItem(newsItem)
+    }
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+
+            R.id.nav_item_favorites -> {
+                topic = R.string.topic_favorites
+                newsFromDB.reverse()
+                showData(newsFromDB)
+            }
 
             R.id.nav_item_top_stories -> {
                 topic = R.string.topic_top_stories

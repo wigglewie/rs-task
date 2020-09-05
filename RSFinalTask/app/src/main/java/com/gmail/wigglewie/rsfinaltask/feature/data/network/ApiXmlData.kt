@@ -19,10 +19,10 @@ class Channel @JvmOverloads constructor(
 
 @Root(name = "item", strict = false)
 class ItemXml @JvmOverloads constructor(
+    @field: Element(name = "link", required = false)
+    var link: String = "",
     @field: Element(name = "title")
     var title: String? = null,
-    @field: Element(name = "link", required = false)
-    var link: String? = null,
     @field: Element(name = "description")
     var description: String? = null,
     @field: Element(name = "enclosure")

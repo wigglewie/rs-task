@@ -4,9 +4,12 @@ import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
@@ -29,7 +32,12 @@ import kotlinx.android.synthetic.main.activity_view_news_item.toolbar_item_view
 
 class ItemViewActivity : AppCompatActivity() {
 
-    private var item: NewsItem? = null
+    private var newsItem: NewsItem? = null
+
+    companion object {
+        const val RESULT_ADD_TO_FAVORITES = 0
+        const val RESULT_REMOVE_FROM_FAVORITES = 1
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,13 +46,13 @@ class ItemViewActivity : AppCompatActivity() {
         setSupportActionBar(toolbar_item_view)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        item = intent.getParcelableExtra("item") as NewsItem
-        val stringExtra = intent.getIntExtra("topic", R.string.topic_top_stories)
+        newsItem = intent.getParcelableExtra("ITEM") as NewsItem
+        val stringExtra = intent.getIntExtra("TOPIC", R.string.topic_top_stories)
 
         supportActionBar?.title = resources.getText(stringExtra)
 
         Glide.with(this)
-            .load(item?.imageUrl)
+            .load(newsItem?.imageUrl)
             .listener(object : RequestListener<Drawable> {
                 override fun onLoadFailed(
                     e: GlideException?,
@@ -69,9 +77,9 @@ class ItemViewActivity : AppCompatActivity() {
             .into(item_view_image)
 
         item_view_text_topic.text = resources.getText(stringExtra)
-        item_view_text_date.text = item?.pubDate
-        item_view_text_title.text = item?.title
-        item_view_text_description.text = item?.description
+        item_view_text_date.text = newsItem?.pubDate
+        item_view_text_title.text = newsItem?.title
+        item_view_text_description.text = newsItem?.description
 
         item_view_button_share.setOnClickListener {
             Toast.makeText(this, "SHARE", Toast.LENGTH_SHORT).show()
@@ -83,7 +91,7 @@ class ItemViewActivity : AppCompatActivity() {
         item_view_button_share.setOnClickListener {
             val shareIntent = Intent()
             shareIntent.action = Intent.ACTION_SEND
-            shareIntent.putExtra(Intent.EXTRA_TEXT, item?.link)
+            shareIntent.putExtra(Intent.EXTRA_TEXT, newsItem?.link)
             shareIntent.type = "text/plain"
             Intent.createChooser(shareIntent, "Share via")
             startActivity(shareIntent)
@@ -91,9 +99,9 @@ class ItemViewActivity : AppCompatActivity() {
 
         item_view_button_visit_website.setOnClickListener {
             val builder = CustomTabsIntent.Builder()
-            builder.setToolbarColor(ContextCompat.getColor(this, R.color.colorTestDarkTheme))
+            builder.setToolbarColor(ContextCompat.getColor(this, R.color.colorToolbar))
             val customTabsIntent = builder.build()
-            customTabsIntent.launchUrl(this, Uri.parse(item?.link))
+            customTabsIntent.launchUrl(this, Uri.parse(newsItem?.link))
         }
 
         if (savedInstanceState != null) {
@@ -107,6 +115,26 @@ class ItemViewActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        return when (item.itemId) {
+            R.id.action_add_to_favorites -> {
+                setResult(RESULT_ADD_TO_FAVORITES, intent)
+                true
+            }
+            R.id.action_remove_from_favorites -> {
+                setResult(RESULT_REMOVE_FROM_FAVORITES, intent)
+                true
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_item_view_activity, menu)
+        return true
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

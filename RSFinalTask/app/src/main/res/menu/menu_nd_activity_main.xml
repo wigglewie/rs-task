@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
     <group>
+        <item
+            android:id="@+id/nav_item_favorites"
+            android:title="@string/topic_favorites" />
+
         <item
             android:id="@+id/nav_item_top_stories"
             android:title="@string/topic_top_stories" />
     </group>
+
 
     <item android:title="@string/topic_group_feeds_by_region">
         <menu>

@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/menu_main_activity_action_switch_mode"
-        android:icon="@drawable/ic_day_night_mode"
-        android:title="Switch day/night mode"
+        android:id="@+id/menu_main_activity_action_settings"
+        android:icon="@drawable/ic_settings"
+        android:title="@string/menu_main_action_settings"
         app:showAsAction="always" />
 </menu>

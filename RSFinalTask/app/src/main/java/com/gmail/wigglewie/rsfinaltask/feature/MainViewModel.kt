@@ -1,21 +1,24 @@
 package com.gmail.wigglewie.rsfinaltask.feature
 
+import android.app.Application
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import com.gmail.wigglewie.rsfinaltask.feature.data.MainRepository
 import com.gmail.wigglewie.rsfinaltask.feature.data.NewsItem
 
 class MainViewModel @ViewModelInject constructor(
-    private val mainRepository: MainRepository
+    application: Application
 ) : ViewModel() {
 
-    init {
+    private var mainRepository: MainRepository = MainRepository(application)
 
-//        Log.d("test", "MVVM and repo: ${myRepository.getNetworkInfo("")}")
+    fun getLocalData() = mainRepository.getLocalInfo()
+    fun addNewsItem(newsItem: NewsItem?) {
+        mainRepository.addNewsItem(newsItem)
     }
 
-    fun getLocalData(): String {
-        return mainRepository.getLocalInfo()
+    fun removeNewsItem(newsItem: NewsItem?) {
+        mainRepository.removeNewsItem(newsItem)
     }
 
     fun getNetworkData(
@@ -24,7 +27,6 @@ class MainViewModel @ViewModelInject constructor(
     ) {
         mainRepository.getNetworkInfo(topic) { items, result ->
             callback(items, result)
-            println()
         }
     }
 }

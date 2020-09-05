@@ -2,16 +2,25 @@ package com.gmail.wigglewie.rsfinaltask.feature.data
 
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
+@Entity(tableName = "news_items_favorites")
 data class NewsItem(
+    @PrimaryKey
+    val link: String,
+    @ColumnInfo
     val title: String?,
-    val link: String?,
+    @ColumnInfo
     val description: String?,
+    @ColumnInfo
     val imageUrl: String?,
+    @ColumnInfo
     val pubDate: String?
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.readString(),
+        parcel.readString()!!,
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
@@ -19,8 +28,8 @@ data class NewsItem(
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(title)
         parcel.writeString(link)
+        parcel.writeString(title)
         parcel.writeString(description)
         parcel.writeString(imageUrl)
         parcel.writeString(pubDate)

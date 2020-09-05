@@ -1,8 +1,7 @@
 package com.gmail.wigglewie.rsfinaltask.di
 
+import android.app.Application
 import com.gmail.wigglewie.rsfinaltask.feature.data.MainRepository
-import com.gmail.wigglewie.rsfinaltask.feature.data.database.LocalData
-import com.gmail.wigglewie.rsfinaltask.feature.data.network.NetworkData
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,9 +15,8 @@ class MainModule {
     @Provides
     @Singleton
     fun provideRepo(
-        localDataSource: LocalData,
-        remoteDataSource: NetworkData
+        application: Application
     ): MainRepository {
-        return MainRepository(localDataSource, remoteDataSource)
+        return MainRepository(application)
     }
 }

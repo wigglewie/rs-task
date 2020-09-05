@@ -1,38 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<!--    <color name="colorPrimary">#f5f5f5</color>-->
+
     <color name="colorPrimary">#FAFAFA</color>
     <color name="colorPrimaryDark">#FAFAFA</color>
     <color name="colorAccent">#232323</color>
 
-    <color name="item_view_layout_colorBackground_day_mode">#ffffff</color>
-    <color name="item_view_layout_colorBackground_night_mode">#232323</color>
+    <color name="colorToolbar">#353535</color>
 
-    <color name="colorTestDarkTheme">#353535</color>
+    <color name="color_rv_background">#ffffff</color>
+    <color name="color_rv_title">#101010</color>
+    <color name="color_rv_pubDate">#878787</color>
 
-    <color name="testColor1">#DD1070</color>
-    <color name="testColor2">#10DD24</color>
-    <color name="testColor3">#103CDD</color>
-    <color name="testColor4">#DDAA10</color>
-    <color name="testColor5">#DD1010</color>
-
-<!--    <color name="colorPrimary">#212121</color>-->
-<!--    <color name="colorPrimaryDark">#484848</color>-->
-<!--    <color name="colorAccent">#000000</color>-->
-
-<!--    <color name="colorDarkPrimary">#212121</color>-->
-<!--    <color name="colorDarkPrimaryLight">#484848</color>-->
-<!--    <color name="colorDarkPrimaryDark">#000000</color>-->
-
-    <color name="item_view_colorTitle">#101010</color>
-    <color name="item_view_colorDescription">#353535</color>
-    <color name="item_view_colorTopic">#5C5C5C</color>
-    <color name="item_view_colorDate">#878787</color>
-    <color name="item_view_colorButton_day_mode">#353535</color>
-    <color name="item_view_colorButton_night_mode">#FAFAFA</color>
-
-    <color name="item_colorTitle">#353535</color>
-    <color name="item_colorDate">#878787</color>
-
+    <color name="color_iv_background">#ffffff</color>
+    <color name="color_iv_topic">#5C5C5C</color>
+    <color name="color_iv_splitter">#BCBCBC</color>
+    <color name="color_iv_pubDate">#BCBCBC</color>
+    <color name="color_iv_title">#353535</color>
+    <color name="color_iv_description">#353535</color>
+    <color name="color_iv_buttonText">#353535</color>
+    <color name="color_iv_buttonShape">#353535</color>
 
 </resources>

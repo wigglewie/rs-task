@@ -5,10 +5,10 @@ import retrofit2.http.GET
 
 interface ItemEndpoints {
 
-    @GET("/feed/subscribe/en/news/all/rss.xml")
+    @GET("feed/subscribe/en/ news/all/rss.xml")
     fun getTopStories(): Call<ApiXmlData>
 
-    @GET("/feed/subscribe/en/news/region/middle-east/feed/rss.xml")
+    @GET("feed/subscribe/en/news/region/middle-east/feed/rss.xml")
     fun getMiddleEast(): Call<ApiXmlData>
 
     @GET("/feed/subscribe/en/news/region/africa/feed/rss.xml")

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:id="@+id/item_view_scrollView"
     android:layout_height="match_parent"
-    android:background="@color/item_view_layout_colorBackground_day_mode">
+    android:background="@color/color_iv_background">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -34,6 +34,7 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <ImageView
+            android:contentDescription="@string/content_desc_item_view_image"
             android:id="@+id/item_view_image"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/activity_view_item_image_height"
@@ -60,7 +61,7 @@
             android:layout_marginStart="@dimen/activity_view_item_margin"
             android:layout_marginTop="@dimen/activity_view_item_text_topic_marginTop"
             android:text="@string/topic_text"
-            android:textColor="@color/item_view_colorTopic"
+            android:textColor="@color/color_iv_topic"
             app:layout_constraintEnd_toStartOf="@+id/item_view_text_splitter"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/item_view_image" />
@@ -71,7 +72,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/item_view_text_splitter_margin"
             android:text="@string/item_view_text_splitter"
-            android:textColor="@color/item_view_colorTopic"
+            android:textColor="@color/color_iv_splitter"
             app:layout_constraintStart_toEndOf="@id/item_view_text_topic"
             app:layout_constraintTop_toTopOf="@id/item_view_text_topic" />
 
@@ -81,7 +82,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/item_view_text_splitter_margin"
             android:text="@string/pubdate_text"
-            android:textColor="@color/item_view_colorDate"
+            android:textColor="@color/color_iv_pubDate"
             app:layout_constraintStart_toEndOf="@id/item_view_text_splitter"
             app:layout_constraintTop_toTopOf="@id/item_view_text_topic" />
 
@@ -93,7 +94,7 @@
             android:layout_marginTop="@dimen/activity_view_item_margin"
             android:layout_marginEnd="@dimen/activity_view_item_margin"
             android:text="@string/title_text"
-            android:textColor="@color/item_view_colorTitle"
+            android:textColor="@color/color_iv_title"
             android:textSize="@dimen/activity_view_item_text_title_textSize"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -108,7 +109,7 @@
             android:layout_marginTop="@dimen/activity_view_item_margin"
             android:layout_marginEnd="@dimen/activity_view_item_margin"
             android:text="@string/desc_text"
-            android:textColor="@color/item_view_colorDescription"
+            android:textColor="@color/color_iv_description"
             android:textSize="@dimen/activity_view_item_text_desc_textSize"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -123,7 +124,7 @@
             android:background="@drawable/button_shape_day_mode"
             android:gravity="center"
             android:text="@string/activity_item_button_share"
-            android:textColor="@color/item_view_colorButton_day_mode"
+            android:textColor="@color/color_iv_buttonText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintEnd_toStartOf="@id/item_view_button_visit_website"
             app:layout_constraintStart_toStartOf="parent"
@@ -137,7 +138,7 @@
             android:background="@drawable/button_shape_day_mode"
             android:gravity="center"
             android:text="@string/activity_view_item_button_visitWebsite"
-            android:textColor="@color/item_view_colorButton_day_mode"
+            android:textColor="@color/color_iv_buttonText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/item_view_button_share"
             app:layout_constraintTop_toTopOf="@id/item_view_button_share" />
