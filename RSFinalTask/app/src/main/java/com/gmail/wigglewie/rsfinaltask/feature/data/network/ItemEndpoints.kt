@@ -5,7 +5,7 @@ import retrofit2.http.GET
 
 interface ItemEndpoints {
 
-    @GET("feed/subscribe/en/ news/all/rss.xml")
+    @GET("feed/subscribe/en/news/all/rss.xml")
     fun getTopStories(): Call<ApiXmlData>
 
     @GET("feed/subscribe/en/news/region/middle-east/feed/rss.xml")

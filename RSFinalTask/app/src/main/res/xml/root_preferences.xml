@@ -8,4 +8,16 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory app:title="@string/news_settings_header">
+
+        <ListPreference
+            app:defaultValue="@string/topic_top_stories"
+            app:entries="@array/topic_choose_entries"
+            app:entryValues="@array/topic_choose_values"
+            app:key="@string/key_default_topic"
+            app:title="@string/start_topic"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
 </PreferenceScreen>

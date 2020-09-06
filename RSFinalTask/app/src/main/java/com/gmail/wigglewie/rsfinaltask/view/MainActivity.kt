@@ -46,7 +46,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     companion object {
         const val REQUEST_CODE_FAVORITES = 0
     }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -70,6 +69,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         navigationView.setNavigationItemSelectedListener(this)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
+
+        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        val value = prefs.getString("default_news_topic", "0")
+        val resId = resources.getIdentifier(value, "string", packageName)
+        topic = resId
+
+        supportActionBar?.setTitle(topic)
+
         if (savedInstanceState != null) {
             topic = savedInstanceState.getInt("TOPIC")
             recyclerView.layoutManager?.onRestoreInstanceState(savedInstanceState)
@@ -78,28 +85,39 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             val parcelableNewsItems =
                 bundleNewsItems?.getParcelableArrayList<NewsItem>("NEWS_ITEMS")
             val mutableNewsItems = parcelableNewsItems?.toMutableList()
-            if (mutableNewsItems != null) {
-                news = mutableNewsItems
+            if (mutableNewsItems?.size != 0) {
+                news = mutableNewsItems!!
             }
             if (news.size == 0) {
                 loadData(topic)
             }
-            showData(news)
+
+            val bundleNewsItemsDB = savedInstanceState.getBundle("DATA_DB")
+            val parcelableNewsItemsDB =
+                bundleNewsItemsDB?.getParcelableArrayList<NewsItem>("NEWS_ITEMS_DB")
+            val mutableNewsItemsDB = parcelableNewsItemsDB?.toMutableList()
+            if (mutableNewsItemsDB != null) {
+                newsFromDB = mutableNewsItemsDB
+            }
+
+            if (topic == R.string.topic_favorites) {
+                showData(newsFromDB)
+            } else {
+                showData(news)
+            }
         } else {
             loadData(topic)
         }
-        supportActionBar?.setTitle(topic)
 
         val newsObserver = Observer<MutableList<NewsItem>> {
             newsFromDB = it
+            newsFromDB.reverse()
             if (topic == R.string.topic_favorites) {
-                newsFromDB.reverse()
                 showData(newsFromDB)
             }
         }
         viewModel.getLocalData().observe(this, newsObserver)
-
-        initItemDecorator()
+        recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -113,14 +131,19 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             putParcelableArrayList("NEWS_ITEMS", ArrayList<Parcelable>(news))
         }
         outState.putBundle("DATA", bundleNewsItems)
+
+        val bundleNewsItemsDB = Bundle().apply {
+            putParcelableArrayList("NEWS_ITEMS_DB", ArrayList<Parcelable>(newsFromDB))
+        }
+        outState.putBundle("DATA_DB", bundleNewsItemsDB)
     }
 
     override fun onResume() {
         super.onResume()
+
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
         isDarkModeEnabled = prefs.getBoolean(getString(R.string.key_dark_mode), false)
         if (topic == R.string.topic_favorites) {
-            newsFromDB.reverse()
             showData(newsFromDB)
         } else {
             showData(news)
@@ -132,14 +155,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    private fun initItemDecorator() {
-        recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
-    }
-
     private fun loadData(topic: Int) {
         supportActionBar?.setTitle(topic)
         if (topic == R.string.topic_favorites) {
-            newsFromDB.reverse()
             showData(newsFromDB)
         } else {
             viewModel.getNetworkData(topic) { items, result ->
@@ -161,6 +179,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun showData(items: MutableList<NewsItem>) {
         supportActionBar?.setTitle(topic)
         activity_main_loader.visibility = View.GONE
+        recyclerView.visibility = View.VISIBLE
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = DataItemAdapter(items) { item ->
             val intent = Intent(this, ItemViewActivity::class.java)
@@ -226,7 +245,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
             R.id.nav_item_favorites -> {
                 topic = R.string.topic_favorites
-                newsFromDB.reverse()
                 showData(newsFromDB)
             }
 

@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
+import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
@@ -28,6 +29,7 @@ class SettingsActivity : AppCompatActivity() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
             bindPreferenceSummaryToValue(findPreference(getString(R.string.key_dark_mode))!!)
+            bindPreferenceSummaryToValue(findPreference(getString(R.string.key_default_topic))!!)
         }
     }
 
@@ -36,21 +38,33 @@ class SettingsActivity : AppCompatActivity() {
         private fun bindPreferenceSummaryToValue(preference: Preference) {
             preference.onPreferenceChangeListener = sBindPreferenceSummaryToValueListener
 
-            sBindPreferenceSummaryToValueListener.onPreferenceChange(
-                preference,
-                PreferenceManager
-                    .getDefaultSharedPreferences(preference.context)
-                    .getBoolean(preference.key, false)
-            )
+            if (preference is ListPreference) {
+                sBindPreferenceSummaryToValueListener.onPreferenceChange(
+                    preference,
+                    PreferenceManager
+                        .getDefaultSharedPreferences(preference.context)
+                        .getString(preference.key, "")
+                )
+            } else {
+                sBindPreferenceSummaryToValueListener.onPreferenceChange(
+                    preference,
+                    PreferenceManager
+                        .getDefaultSharedPreferences(preference.context)
+                        .getBoolean(preference.key, false)
+                )
+            }
         }
 
         private val sBindPreferenceSummaryToValueListener =
             Preference.OnPreferenceChangeListener { preference, newValue ->
-                val b = newValue as Boolean
-                if (b) {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                if (preference is ListPreference) {
+                    println()
                 } else {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                    if (newValue as Boolean) {
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                    } else {
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                    }
                 }
                 true
             }
