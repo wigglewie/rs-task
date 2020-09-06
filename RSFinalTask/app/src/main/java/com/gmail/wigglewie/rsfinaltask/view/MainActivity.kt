@@ -46,6 +46,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     companion object {
         const val REQUEST_CODE_FAVORITES = 0
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -71,7 +72,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
-        val value = prefs.getString("default_news_topic", "0")
+        val value = prefs.getString("default_news_topic", "topic_top_stories")
         val resId = resources.getIdentifier(value, "string", packageName)
         topic = resId
 
@@ -86,7 +87,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 bundleNewsItems?.getParcelableArrayList<NewsItem>("NEWS_ITEMS")
             val mutableNewsItems = parcelableNewsItems?.toMutableList()
             if (mutableNewsItems?.size != 0) {
-                news = mutableNewsItems!!
+                if (mutableNewsItems != null) {
+                    news = mutableNewsItems
+                }
             }
             if (news.size == 0) {
                 loadData(topic)

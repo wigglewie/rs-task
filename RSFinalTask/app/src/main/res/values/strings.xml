@@ -37,7 +37,6 @@
     <string name="activity_view_item_button_visitWebsite">VISIT WEBSITE</string>
     <string name="activity_item_button_share">SHARE</string>
     <string name="topic_favorites">Favorites</string>
-    <string name="error_loading_data_msg">Error on loading \nUpdating data by publisher \nCome back later :)</string>
     <string name="menu_main_action_settings">Settings</string>
     <string name="title_activity_settings2">SettingsActivity2</string>
 

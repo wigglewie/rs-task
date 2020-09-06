@@ -28,15 +28,15 @@ class SettingsActivity : AppCompatActivity() {
     class SettingsFragment : PreferenceFragmentCompat() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
-            bindPreferenceSummaryToValue(findPreference(getString(R.string.key_dark_mode))!!)
-            bindPreferenceSummaryToValue(findPreference(getString(R.string.key_default_topic))!!)
+            bindPreferenceSummaryToValue(findPreference(getString(R.string.key_dark_mode)))
+            bindPreferenceSummaryToValue(findPreference(getString(R.string.key_default_topic)))
         }
     }
 
     companion object {
 
-        private fun bindPreferenceSummaryToValue(preference: Preference) {
-            preference.onPreferenceChangeListener = sBindPreferenceSummaryToValueListener
+        private fun bindPreferenceSummaryToValue(preference: Preference?) {
+            preference?.onPreferenceChangeListener = sBindPreferenceSummaryToValueListener
 
             if (preference is ListPreference) {
                 sBindPreferenceSummaryToValueListener.onPreferenceChange(
@@ -49,8 +49,8 @@ class SettingsActivity : AppCompatActivity() {
                 sBindPreferenceSummaryToValueListener.onPreferenceChange(
                     preference,
                     PreferenceManager
-                        .getDefaultSharedPreferences(preference.context)
-                        .getBoolean(preference.key, false)
+                        .getDefaultSharedPreferences(preference?.context)
+                        .getBoolean(preference?.key, false)
                 )
             }
         }
