@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">@color/colorToolbar</item>
+        <item name="colorPrimaryDark">@color/colorToolbar</item>
+        <item name="colorAccent">@color/color_rv_title</item>
+        <item name="android:actionMenuTextColor">@android:color/white</item>
+        <item name="colorControlNormal">@color/colorPrimary</item>
+    </style>
+
+</resources>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_rv_background"
+    android:paddingBottom="@dimen/rv_item_margin">
+
+    <TextView
+        android:id="@+id/rv_item_text_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/rv_item_margin"
+        android:layout_marginTop="@dimen/rv_item_margin"
+        android:layout_marginEnd="@dimen/rv_item_margin"
+        android:ellipsize="end"
+        android:maxLines="4"
+        android:text="@string/title_text"
+        android:textColor="@color/color_rv_title"
+        android:textSize="@dimen/rv_item_text_title_size"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@id/rv_item_image"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/rv_item_text_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/rv_item_margin"
+        android:layout_marginTop="@dimen/rv_item_text_date_margin"
+        android:text="@string/pubdate_text"
+        android:textColor="@color/color_rv_pubDate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rv_item_text_title" />
+
+
+    <ImageView
+        android:contentDescription="@string/content_desc_recyclerview_image"
+        android:id="@+id/rv_item_image"
+        android:layout_width="@dimen/rv_item_image_width"
+        android:layout_height="@dimen/rv_item_image_height"
+        android:layout_marginEnd="@dimen/rv_item_margin"
+        android:scaleType="centerCrop"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/rv_item_text_title"
+        app:layout_constraintTop_toTopOf="@id/rv_item_text_title"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/rv_item_loader"
+        android:layout_width="@dimen/rv_item_image_width"
+        android:layout_height="@dimen/rv_item_image_height"
+        android:layout_marginEnd="@dimen/rv_item_margin"
+        android:scaleType="centerCrop"
+        android:src="@drawable/loader"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/rv_item_image"
+        app:layout_constraintTop_toTopOf="@id/rv_item_text_title" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

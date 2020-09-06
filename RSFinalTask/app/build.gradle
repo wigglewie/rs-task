@@ -1,0 +1,112 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
+apply plugin: 'dagger.hilt.android.plugin'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        applicationId "com.gmail.wigglewie.rsfinaltask"
+        minSdkVersion 26
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+
+}
+
+ext {
+    version_recyclerview = '1.1.0'
+    version_core = '1.3.1'
+    version_appcompat = '1.2.0'
+    version_constraintlayout = '2.0.1'
+    version_retrofit = '2.9.0'
+    version_material = '1.2.1'
+    version_firebase_analytics = '17.5.0'
+    version_firebase_crashlytics = '17.2.1'
+    version_room = '2.2.5'
+    version_preference = '1.1.1'
+    version_browser = '1.2.0'
+    version_android_gif_drawable = '1.2.17'
+    version_glide = '4.11.0'
+    version_lifecycle_extensions = '1.1.1'
+    version_hilt_compiler = '1.0.0-alpha02'
+    version_lifecycle = '2.2.0'
+    version_activity = '1.1.0'
+    version_fragment = '1.2.5'
+}
+
+dependencies {
+    testImplementation "junit:junit:4.12"
+    testImplementation "org.mockito:mockito-core:2.8.47"
+
+    implementation "androidx.room:room-runtime:$version_room"
+    implementation "androidx.preference:preference:$version_preference"
+    kapt "androidx.room:room-compiler:$version_room"
+    implementation "androidx.browser:browser:$version_browser"
+
+    implementation "pl.droidsonroids.gif:android-gif-drawable:$version_android_gif_drawable"
+
+    implementation "com.github.bumptech.glide:glide:$version_glide"
+    annotationProcessor "com.github.bumptech.glide:compiler:$version_glide"
+
+    implementation "android.arch.lifecycle:extensions:$version_lifecycle_extensions"
+
+    implementation "com.google.dagger:hilt-android:$version_hilt"
+    kapt "com.google.dagger:hilt-android-compiler:$version_hilt"
+    kapt "androidx.hilt:hilt-compiler:$version_hilt_compiler"
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$version_hilt_compiler"
+
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$version_lifecycle"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$version_lifecycle"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$version_lifecycle"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$version_lifecycle"
+
+    implementation "androidx.activity:activity:$version_activity"
+    implementation "androidx.fragment:fragment-ktx:$version_fragment"
+
+    implementation "com.google.firebase:firebase-analytics-ktx:$version_firebase_analytics"
+    implementation "com.google.firebase:firebase-crashlytics-ktx:$version_firebase_crashlytics"
+    implementation "com.google.android.material:material:$version_material"
+    implementation "com.squareup.retrofit2:retrofit:$version_retrofit"
+    implementation "com.squareup.retrofit2:converter-simplexml:$version_retrofit"
+    implementation "androidx.recyclerview:recyclerview:$version_recyclerview"
+
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
+    implementation("androidx.core:core-ktx:$version_core")
+    implementation("androidx.appcompat:appcompat:$version_appcompat")
+    implementation("androidx.constraintlayout:constraintlayout:$version_constraintlayout")
+}

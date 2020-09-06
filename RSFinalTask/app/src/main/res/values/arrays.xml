@@ -1,0 +1,50 @@
+<resources>
+
+    <string-array name="topic_choose_entries">
+        <item>@string/topic_favorites</item>
+        <item>@string/topic_top_stories</item>
+
+        <item>@string/topic_middle_east</item>
+        <item>@string/topic_africa</item>
+        <item>@string/topic_europe</item>
+        <item>@string/topic_americas</item>
+        <item>@string/topic_asia_pacific</item>
+
+        <item>@string/topic_health</item>
+        <item>@string/topic_un_affairs</item>
+        <item>@string/topic_law_and_crime_prevention</item>
+        <item>@string/topic_human_rights</item>
+        <item>@string/topic_humanitarian_aid</item>
+        <item>@string/topic_climate_change</item>
+        <item>@string/topic_culture_and_education</item>
+        <item>@string/topic_economic_development</item>
+        <item>@string/topic_women</item>
+        <item>@string/topic_peace_and_security</item>
+        <item>@string/topic_migrants_and_refugees</item>
+        <item>@string/topic_sdgs</item>
+    </string-array>
+
+    <string-array name="topic_choose_values">
+        <item>topic_favorites</item>
+        <item>topic_top_stories</item>
+
+        <item>topic_middle_east</item>
+        <item>topic_africa</item>
+        <item>topic_europe</item>
+        <item>topic_americas</item>
+        <item>/topic_asia_pacific</item>
+
+        <item>topic_health</item>
+        <item>topic_un_affairs</item>
+        <item>topic_law_and_crime_prevention</item>
+        <item>topic_human_rights</item>
+        <item>topic_humanitarian_aid</item>
+        <item>topic_climate_change</item>
+        <item>topic_culture_and_education</item>
+        <item>topic_economic_development</item>
+        <item>topic_women</item>
+        <item>topic_peace_and_security</item>
+        <item>topic_migrants_and_refugees</item>
+        <item>topic_sdgs</item>
+    </string-array>
+</resources>

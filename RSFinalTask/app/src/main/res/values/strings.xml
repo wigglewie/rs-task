@@ -1,0 +1,59 @@
+<resources>
+    <string name="app_name">UN News RSS Feed</string>
+
+    <string name="title_text">Digital economy can put citizens in control of finance, says UN taskforce</string>
+    <string name="desc_text">A UN taskforce set up to look into the risks and benefits of the digital economy, has concluded that it could have a transformational impact on sustainable development, and empower citizens, both as taxpayers and investors.</string>
+    <string name="pubdate_text">Wed, 26 Aug 2020</string>
+    <string name="topic_text">Economic Development</string>
+
+    <string name="item_view_text_splitter">/</string>
+
+    <string name="topic_top_stories">Top Stories</string>
+
+    <string name="topic_group_feeds_by_region">Feeds by region</string>
+    <string name="topic_middle_east">Middle East</string>
+    <string name="topic_africa">Africa</string>
+    <string name="topic_europe">Europe</string>
+    <string name="topic_americas">Americas</string>
+    <string name="topic_asia_pacific">Asia Pacific</string>
+
+    <string name="topic_group_feeds_by_topic">Feeds by topic</string>
+    <string name="topic_health">Health</string>
+    <string name="topic_un_affairs">UN Affairs</string>
+    <string name="topic_law_and_crime_prevention">Law and Crime Prevention</string>
+    <string name="topic_human_rights">Human Rights</string>
+    <string name="topic_humanitarian_aid">Humanitarian Aid</string>
+    <string name="topic_climate_change">Climate Change</string>
+    <string name="topic_culture_and_education">Culture and Education</string>
+    <string name="topic_economic_development">Economic Development</string>
+    <string name="topic_women">Women</string>
+    <string name="topic_peace_and_security">Peace and Security</string>
+    <string name="topic_migrants_and_refugees">Migrants and Refugees</string>
+    <string name="topic_sdgs">SDGs</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="activity_view_item_button_visitWebsite">VISIT WEBSITE</string>
+    <string name="activity_item_button_share">SHARE</string>
+    <string name="topic_favorites">Favorites</string>
+    <string name="menu_main_action_settings">Settings</string>
+    <string name="title_activity_settings2">SettingsActivity2</string>
+
+    <string name="label_activity_settings">Settings</string>
+
+    <string name="display_settings_header">Display Settings</string>
+    <string name="enable_dark_theme">Enable dark theme</string>
+
+    <string name="news_settings_header">News Settings</string>
+    <string name="start_topic">Default news topic</string>
+
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="key_dark_mode">dark_mode</string>
+    <string name="action_add_to_favorites">Add to Favorites</string>
+    <string name="action_remove_from_favorites">Remove from Favorites</string>
+    <string name="content_desc_recyclerview_image">recyclerView image</string>
+    <string name="content_desc_item_view_image">item_view_image</string>
+    <string name="key_default_topic">default_news_topic</string>
+
+</resources>
