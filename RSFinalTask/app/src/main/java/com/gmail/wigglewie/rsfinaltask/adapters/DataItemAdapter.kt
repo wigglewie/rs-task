@@ -1,6 +1,5 @@
 package com.gmail.wigglewie.rsfinaltask.adapters
 
-import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,17 +7,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.Target
 import com.gmail.wigglewie.rsfinaltask.R
 import com.gmail.wigglewie.rsfinaltask.feature.data.NewsItem
 import kotlinx.android.synthetic.main.rv_item.view.rv_item_image
-import kotlinx.android.synthetic.main.rv_item.view.rv_item_loader
 import kotlinx.android.synthetic.main.rv_item.view.rv_item_text_date
 import kotlinx.android.synthetic.main.rv_item.view.rv_item_text_title
-import pl.droidsonroids.gif.GifImageView
 
 class DataItemAdapter() :
     RecyclerView.Adapter<DataItemAdapter.ViewHolder>() {
@@ -35,7 +28,8 @@ class DataItemAdapter() :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.rv_item, parent, false)
+        val view: View =
+            LayoutInflater.from(parent.context).inflate(R.layout.rv_item, parent, false)
         return ViewHolder(view)
     }
 
@@ -49,31 +43,8 @@ class DataItemAdapter() :
 
         Glide.with(holder.image.context)
             .load(item.imageUrl)
-            .listener(object : RequestListener<Drawable> {
-                override fun onLoadFailed(
-                    e: GlideException?,
-                    model: Any?,
-                    target: Target<Drawable>?,
-                    isFirstResource: Boolean
-                ): Boolean {
-
-                    return true
-                }
-
-                override fun onResourceReady(
-                    resource: Drawable?,
-                    model: Any?,
-                    target: Target<Drawable>?,
-                    dataSource: DataSource?,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    holder.loader.visibility = View.GONE
-                    return false
-                }
-            })
+            .thumbnail(Glide.with(holder.image.context).load(R.drawable.loader))
             .into(holder.image)
-
-        println()
 
         holder.itemView.setOnClickListener { listener?.invoke(item) }
     }
@@ -82,6 +53,5 @@ class DataItemAdapter() :
         val textTitle: TextView = itemView.rv_item_text_title
         val textPubDate: TextView = itemView.rv_item_text_date
         val image: ImageView = itemView.rv_item_image
-        val loader: GifImageView = itemView.rv_item_loader
     }
 }
