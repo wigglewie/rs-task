@@ -17,6 +17,9 @@ buildscript {
         classpath "com.google.firebase:firebase-crashlytics-gradle:$version_gradle"
 
         classpath "com.google.dagger:hilt-android-gradle-plugin:$version_hilt"
+
+        classpath "de.mannodermaus.gradle.plugins:android-junit5:$android_junit5_version"
+        classpath "org.jacoco:org.jacoco.core:$jacoco_version"
     }
 }
 
@@ -54,6 +57,8 @@ allprojects {
         google()
         jcenter()
         mavenCentral()
+
+        maven { url "https://dl.bintray.com/spekframework/spek-dev" }
     }
 }
 
