@@ -30,6 +30,7 @@ class MockParcel {
         setupWrites()
         setupReads()
         setupOthers()
+        setupSize()
     }
 
     // uncomment when needed for the first time
@@ -59,4 +60,8 @@ class MockParcel {
         whenever(mockedParcel.setDataPosition(anyInt())).thenAnswer(answer)
     }
 
+    private fun setupSize() {
+        val answer = { i: InvocationOnMock -> store.count() }
+        whenever(mockedParcel.dataSize()).thenAnswer(answer)
+    }
 }
